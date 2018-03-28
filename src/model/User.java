@@ -1,6 +1,7 @@
 package model;
 
 import java.util.List;
+import java.util.Map;
 
 public class User {
 
@@ -8,6 +9,8 @@ public class User {
     private String login;
     private String password;
     private String name;
-    private List<Coin> wallet;
+    private String cpf;
+//    private Map<String, float> wallet;
+
 
 }
