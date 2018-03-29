@@ -1,9 +1,10 @@
 package model;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-public class User {
+public class User implements Serializable {
 
     private int userId;
     private String login;
@@ -14,6 +15,7 @@ public class User {
 
 
     public User(int userId, String login, String password, String name, String cpf) {
+        super();
         this.userId = userId;
         this.login = login;
         this.password = password;

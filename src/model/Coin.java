@@ -1,12 +1,15 @@
 package model;
 
-public class Coin {
+import java.io.Serializable;
+
+public class Coin implements Serializable {
 
     private String extId;
     private String name;
     private float price;
 
     public Coin(String extId, String name, float price) {
+        super();
         this.extId = extId;
         this.name = name;
         this.price = price;
