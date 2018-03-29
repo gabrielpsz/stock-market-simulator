@@ -5,6 +5,19 @@ public class Coin {
     private String name;
     private float price;
 
+    public Coin(String name, float price) {
+        this.name = name;
+        this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        return "Coin{" +
+                "name='" + name + '\'' +
+                ", price=" + price +
+                '}';
+    }
+
     public String getName() {
         return name;
     }

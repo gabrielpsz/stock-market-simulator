@@ -13,6 +13,25 @@ public class User {
 //    private Map<String, float> wallet;
 
 
+    public User(int userId, String login, String password, String name, String cpf) {
+        this.userId = userId;
+        this.login = login;
+        this.password = password;
+        this.name = name;
+        this.cpf = cpf;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", cpf='" + cpf + '\'' +
+                '}';
+    }
+
     public int getUserId() {
         return userId;
     }
