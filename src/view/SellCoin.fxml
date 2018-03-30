@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -11,38 +14,15 @@
 <?import javafx.scene.layout.VBox?>
 
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1">
+<Pane prefHeight="383.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <MenuBar>
-        <menus>
-          <Menu mnemonicParsing="false" text="Arquivo">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Editar">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Ajuda">
-            <items>
-              <MenuItem mnemonicParsing="false" text="About" />
-            </items>
-          </Menu>
-        </menus>
-      </MenuBar>
-      <Pane prefHeight="383.0" prefWidth="600.0">
-         <children>
-            <ComboBox layoutX="306.0" layoutY="69.0" prefWidth="150.0" />
-            <Label layoutX="158.0" layoutY="73.0" text="Selecione a moeda" />
-            <Label layoutX="143.0" layoutY="107.0" text="Quantidade desejada" />
-            <TextField layoutX="306.0" layoutY="102.0" prefHeight="26.0" prefWidth="150.0" />
-            <Label layoutX="183.0" layoutY="140.0" text="Valor da venda" />
-            <Label layoutX="306.0" layoutY="140.0" prefHeight="16.0" prefWidth="150.0" />
-            <Button layoutX="391.0" layoutY="207.0" mnemonicParsing="false" text="Vender" />
-            <Button layoutX="158.0" layoutY="207.0" mnemonicParsing="false" text="Cancelar" />
-         </children>
-      </Pane>
+      <ComboBox fx:id="sellCbBoxCoin" layoutX="306.0" layoutY="69.0" prefWidth="150.0" />
+      <Label layoutX="158.0" layoutY="73.0" text="Selecione a moeda" />
+      <Label layoutX="143.0" layoutY="107.0" text="Quantidade desejada" />
+      <TextField fx:id="sellQtdText" layoutX="306.0" layoutY="102.0" prefHeight="26.0" prefWidth="150.0" />
+      <Label layoutX="183.0" layoutY="140.0" text="Valor da venda" />
+      <Label fx:id="sellQtdLabel" layoutX="306.0" layoutY="140.0" prefHeight="16.0" prefWidth="150.0" />
+      <Button fx:id="sellBtn" layoutX="391.0" layoutY="207.0" mnemonicParsing="false" onAction="#sellBtnAction" text="Vender" />
+      <Button fx:id="sellBtnCancel" layoutX="158.0" layoutY="207.0" mnemonicParsing="false" onAction="#sellBtnCancelAction" text="Cancelar" />
    </children>
-</VBox>
+</Pane>
