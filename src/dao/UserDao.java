@@ -78,18 +78,18 @@ public class UserDao {
         }
     }
 
-    public User get(String numeroMatricula) {
+    public User get(String login) {
 
-        if (numeroMatricula != null) {
-            return userCache.get(numeroMatricula);
+        if (login != null) {
+            return userCache.get(login);
         }
 
         return null;
 
     }
 
-    public void remove(String numeroMatricula) {
-        userCache.remove(numeroMatricula);
+    public void remove(String login) {
+        userCache.remove(login);
         persist();
     }
 

@@ -78,18 +78,18 @@ public class CoinDao {
         }
     }
 
-    public Coin get(String numeroMatricula) {
+    public Coin get(String extendedId) {
 
-        if (numeroMatricula != null) {
-            return coinCache.get(numeroMatricula);
+        if (extendedId != null) {
+            return coinCache.get(extendedId);
         }
 
         return null;
 
     }
 
-    public void remove(String numeroMatricula) {
-        coinCache.remove(numeroMatricula);
+    public void remove(String extendedId) {
+        coinCache.remove(extendedId);
         persist();
     }
 
