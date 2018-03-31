@@ -1,7 +1,6 @@
 package model;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.Map;
 
 public class User implements Serializable {
@@ -11,16 +10,16 @@ public class User implements Serializable {
     private String password;
     private String name;
     private String cpf;
-//    private Map<String, float> wallet;
+    private Map<String, Coin> wallet;
 
-
-    public User(int userId, String login, String password, String name, String cpf) {
+    public User(int userId, String login, String password, String name, String cpf, Map<String, Coin> wallet) {
         super();
         this.userId = userId;
         this.login = login;
         this.password = password;
         this.name = name;
         this.cpf = cpf;
+        this.wallet = wallet;
     }
 
     @Override
@@ -33,6 +32,15 @@ public class User implements Serializable {
                 ", cpf='" + cpf + '\'' +
                 '}';
     }
+
+    public Map<String, Coin> getWallet() {
+        return wallet;
+    }
+
+    public void setWallet(Map<String, Coin> wallet) {
+        this.wallet = wallet;
+    }
+
 
     public int getUserId() {
         return userId;
