@@ -1,4 +1,4 @@
 package control;
 
-public class CoinController {
+public class CoinController extends Controller {
 }
