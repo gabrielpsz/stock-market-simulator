@@ -40,10 +40,10 @@
                   <TableColumn prefWidth="205.0" text="Valor Total em R$" />
               </columns>
             </TableView>
-            <Button layoutX="61.0" layoutY="301.0" mnemonicParsing="false" text="Depositar" />
-            <Button layoutX="170.0" layoutY="301.0" mnemonicParsing="false" text="Sacar" />
-            <Button layoutX="365.0" layoutY="301.0" mnemonicParsing="false" text="Vender" />
-            <Button layoutX="456.0" layoutY="301.0" mnemonicParsing="false" text="Comprar" />
+            <Button fx:id="walletDepositBtn" layoutX="61.0" layoutY="301.0" mnemonicParsing="false" onAction="#walletDepositBtnAction" text="Depositar" />
+            <Button fx:id="walletCashWithBtn" layoutX="170.0" layoutY="301.0" mnemonicParsing="false" onAction="#walletCashWithBtnAction" text="Sacar" />
+            <Button fx:id="walletBtnSell" layoutX="365.0" layoutY="301.0" mnemonicParsing="false" onAction="#walletBtnSellAction" text="Vender" />
+            <Button fx:id="walletBtnBuy" layoutX="456.0" layoutY="301.0" mnemonicParsing="false" onAction="#walletBtnBuyAction" text="Comprar" />
          </children>
       </Pane>
    </children>
