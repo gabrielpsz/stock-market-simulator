@@ -6,11 +6,10 @@ public class Coin implements Serializable {
 
     private String extId;
     private String name;
-    private float price;
+    private double price;
 
-    public Coin(String extId, String name, float price) {
+    public Coin(String name, double price) {
         super();
-        this.extId = extId;
         this.name = name;
         this.price = price;
     }
@@ -40,11 +39,11 @@ public class Coin implements Serializable {
         this.name = name;
     }
 
-    public float getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 }

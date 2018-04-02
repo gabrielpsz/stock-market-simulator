@@ -1,5 +1,6 @@
 package control;
 
+import dao.CoinDao;
 import dao.DAO;
 import dao.UserDao;
 import model.User;
@@ -56,13 +57,37 @@ public class UserController extends Controller implements DAO {
         }
     }
 
-    public void receiveData(int userId, String login, String password, String name, String cpf) {
-        User user = new User(userId, login, password, name, cpf);
-        save(user);
+    public static UserController getUserController() {
+        if (userController == null) {
+            userController = new UserController();
+        }
+        return userController;
+    }
+
+    public static void setCoinController(UserController userController) {
+        UserController.userController = userController;
     }
 
     public ArrayList<User> listUsers() {
         return new ArrayList<User>(UserDao.getUserDao().getList());
+    }
+
+    public void receiveData(String login, String password, String name, String cpf) {
+        User user = new User(login, password, name, cpf, CoinController.getCoinController().createWallet());
+        save(user);
+    }
+
+    public boolean authenticateUser(String login, String password) {
+        if (UserDao.getUserDao().get(login) != null) {
+            if (UserDao.getUserDao().getList().isEmpty()) {
+                return false;
+            } else {
+                if (UserDao.getUserDao().get(login).getPassword().equals(password)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
 

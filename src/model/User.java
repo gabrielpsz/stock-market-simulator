@@ -1,7 +1,6 @@
 package model;
 
 import java.io.Serializable;
-import java.util.HashMap;
 import java.util.Map;
 
 public class User implements Serializable {
@@ -11,16 +10,15 @@ public class User implements Serializable {
     private String password;
     private String name;
     private String cpf;
-    private Map<String, Coin> wallet;
+    private Map<String, Double> wallet;
 
-    public User(int userId, String login, String password, String name, String cpf) {
+    public User(String login, String password, String name, String cpf, Map<String, Double> wallet) {
         super();
-        this.userId = userId;
         this.login = login;
         this.password = password;
         this.name = name;
         this.cpf = cpf;
-        this.wallet = new HashMap<String, Coin>();
+        this.wallet = wallet;
     }
 
     @Override
@@ -34,11 +32,11 @@ public class User implements Serializable {
                 '}';
     }
 
-    public Map<String, Coin> getWallet() {
+    public Map<String, Double> getWallet() {
         return wallet;
     }
 
-    public void setWallet(Map<String, Coin> wallet) {
+    public void setWallet(Map<String, Double> wallet) {
         this.wallet = wallet;
     }
 
