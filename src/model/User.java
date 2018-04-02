@@ -12,14 +12,13 @@ public class User implements Serializable {
     private String cpf;
     private Map<String, Coin> wallet;
 
-    public User(int userId, String login, String password, String name, String cpf, Map<String, Coin> wallet) {
+    public User(int userId, String login, String password, String name, String cpf) {
         super();
         this.userId = userId;
         this.login = login;
         this.password = password;
         this.name = name;
         this.cpf = cpf;
-        this.wallet = wallet;
     }
 
     @Override
