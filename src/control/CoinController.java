@@ -36,11 +36,7 @@ public class CoinController extends Controller implements DAO {
             if (CoinDao.getCoinDao().getList().isEmpty()) {
                 return;
             } else {
-                if (verifyCoinExistance(cn.getExtId())) {
-                    CoinDao.getCoinDao().remove(cn.getExtId());
-                } else {
-                    return;
-                }
+                CoinDao.getCoinDao().remove(cn.getExtId());
             }
         }
     }

@@ -36,11 +36,7 @@ public class UserController extends Controller implements DAO {
             if (UserDao.getUserDao().getList().isEmpty()) {
                 return;
             } else {
-                if (verifyUserExistance(cn.getLogin())) {
-                    UserDao.getUserDao().remove(cn.getLogin());
-                } else {
-                    return;
-                }
+                UserDao.getUserDao().remove(cn.getLogin());
             }
         }
     }
