@@ -23,9 +23,7 @@ public class UserController extends Controller implements DAO {
     public void save(Object user) {
         if (user != null) {
             User cn = (User) user;
-            if (UserDao.getUserDao().getList().isEmpty()) {
-                UserDao.getUserDao().put(cn);
-            }
+            UserDao.getUserDao().put(cn);
         }
     }
 

@@ -23,9 +23,7 @@ public class CoinController extends Controller implements DAO {
     public void save(Object coin) {
         if (coin != null) {
             Coin cn = (Coin) coin;
-            if (CoinDao.getCoinDao().getList().isEmpty()) {
-                CoinDao.getCoinDao().put(cn);
-            }
+            CoinDao.getCoinDao().put(cn);
         }
     }
 

@@ -1,6 +1,7 @@
 package model;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.Map;
 
 public class User implements Serializable {
@@ -19,6 +20,7 @@ public class User implements Serializable {
         this.password = password;
         this.name = name;
         this.cpf = cpf;
+        this.wallet = new HashMap<String, Coin>();
     }
 
     @Override
