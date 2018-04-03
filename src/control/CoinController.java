@@ -14,12 +14,6 @@ public class CoinController extends Controller implements ICrud {
 
     private static CoinController coinController;
 
-    private Coin real = new Coin("Real", 1);
-    private Coin putin = new Coin("Putin", 8.12);
-    private Coin doge = new Coin("Doge", 3.5);
-    private Coin marreta = new Coin("Marreta", 1.43);
-    private Coin recayd = new Coin("Recayd", 4.09);
-
     public CoinController() {
         super();
     }
@@ -29,22 +23,29 @@ public class CoinController extends Controller implements ICrud {
 
     }
 
-    @Override
-    public void create(Object coin) {
-        if (coin != null) {
-            Coin cn = (Coin) coin;
-            if (read().isEmpty()) {
-                cn.setExtId("1");
-                CoinDao.getCoinDao().put(cn);
-            } else {
-                String lastId = read().get(read().size() - 1).getExtId();
-                int lastIntId = Integer.parseInt(lastId);
-                int newIntId = lastIntId + 1;
-                String newId = Integer.toString(newIntId);
-                cn.setExtId(newId);
-                CoinDao.getCoinDao().put(cn);
-            }
-        }
+    public static void main(String[] args) {
+//        Coin real = new Coin("Real", 1);
+//        Coin putin = new Coin("Putin", 8.12);
+//        Coin doge = new Coin("Doge", 3.5);
+//        Coin marreta = new Coin("Marreta", 1.43);
+//        Coin recayd = new Coin("Recayd", 4.09);
+//        getCoinController().create(real);
+//        getCoinController().create(putin);
+//        getCoinController().create(doge);
+//        getCoinController().create(marreta);
+//        getCoinController().create(recayd);
+//        User user = new User("Teste", "teste", "Teste", "TOMANOCU", getCoinController().createWallet());
+//        UserController.getUserController().create(user);
+        getCoinController().depositReal(UserController.getUserController().searchUser("Teste"), 200);
+        Coin coinOut = getCoinController().searchCoin("1");
+        Coin coinIN = getCoinController().searchCoin("3");
+        getCoinController().exchange(UserController.getUserController().searchUser("Teste"), 100, coinOut, coinIN);
+        System.out.println(UserController.getUserController().searchUser("Teste").getWallet());
+        getCoinController().withdrawReal(UserController.getUserController().searchUser("Teste"), 80);
+        System.out.println(UserController.getUserController().searchUser("Teste").getWallet());
+        getCoinController().depositReal(UserController.getUserController().searchUser("Teste"), 300);
+        System.out.println(UserController.getUserController().searchUser("Teste").getHistory());
+
     }
 
     @Override
@@ -101,30 +102,33 @@ public class CoinController extends Controller implements ICrud {
         update(coin);
     }
 
-    public static void main(String[] args) {
-        CoinController coinRegister = new CoinController();
-        User user = new User("Teste", "teste", "Teste", "TOMANOCU", coinRegister.createWallet());
-        coinRegister.depositReal(user, 200);
-        Coin coinOut = coinRegister.real;
-        Coin coinIN = coinRegister.doge;
-        coinRegister.exchange(user, 100, coinOut, coinIN);
-        System.out.println(user.getWallet());
-        coinRegister.withdrawReal(user, 80);
-        System.out.println(user.getWallet());
-        coinRegister.depositReal(user, 300);
-        System.out.println(user.getHistory());
-
+    @Override
+    public void create(Object coin) {
+        if (coin != null) {
+            Coin cn = (Coin) coin;
+            if (read().isEmpty()) {
+                cn.setExtId("1");
+                CoinDao.getCoinDao().put(cn);
+            } else {
+                String lastId = read().get(read().size() - 1).getExtId();
+                int lastIntId = Integer.parseInt(lastId);
+                int newIntId = lastIntId + 1;
+                String newId = Integer.toString(newIntId);
+                cn.setExtId(newId);
+                CoinDao.getCoinDao().put(cn);
+            }
+        }
     }
 
     // Continue from here warning!
 
     public Map<String, Double> createWallet() {
+
         Map<String, Double> wallet = new HashMap<>();
-        wallet.put(real.getName(), real.getPrice() * 0);
-        wallet.put(putin.getName(), putin.getPrice() * 0);
-        wallet.put(doge.getName(), doge.getPrice() * 0);
-        wallet.put(marreta.getName(), marreta.getPrice() * 0);
-        wallet.put(recayd.getName(), recayd.getPrice() * 0);
+
+        for (int i = 0; i < read().size(); i++) {
+            wallet.put(read().get(i).getExtId(), read().get(i).getPrice() * 0);
+        }
 
         return wallet;
     }
@@ -132,32 +136,36 @@ public class CoinController extends Controller implements ICrud {
     public void depositReal(User user, double value) {
         user.getWallet().replace("Real", value);
         Instant timeNow = Instant.now();
-        String history = user.getName() + "- Depósito: R$" + value + "- Data:" + timeNow.toString();
+        String history = user.getName() + " - Depósito: R$" + value + " - Data:" + timeNow.toString();
         user.getHistory().add(history);
     }
 
     public void exchange(User user, double value, Coin coinOut, Coin coinIn) {
-        if (value > user.getWallet().get(coinOut.getName())) {
+        if (value > user.getWallet().get(coinOut.getExtId())) {
             System.out.println("Falta dinheiro");
         } else {
-            double walletCoinOut = user.getWallet().get(coinOut.getName()) - value;
-            double walletCoinIn = user.getWallet().get(coinIn.getName());
+            double walletCoinOut = user.getWallet().get(coinOut.getExtId()) - value;
+            double walletCoinIn = user.getWallet().get(coinIn.getExtId());
             double coinOutToCoinIn = (value / coinIn.getPrice()) + walletCoinIn;
 
-            user.getWallet().replace(coinOut.getName(), walletCoinOut);
-            user.getWallet().replace(coinIn.getName(), coinOutToCoinIn);
+            user.getWallet().replace(coinOut.getExtId(), walletCoinOut);
+            user.getWallet().replace(coinIn.getExtId(), coinOutToCoinIn);
         }
     }
 
     public void withdrawReal(User user, double value) {
-        if (value <= user.getWallet().get("Real")) {
-            user.getWallet().replace("Real", (user.getWallet().get("Real") - value));
+        if (value <= user.getWallet().get("1")) {
+            user.getWallet().replace("1", (user.getWallet().get("1") - value));
             Instant timeNow = Instant.now();
-            String history = user.getName() + "- Retirada: R$" + value + "- Data:" + timeNow.toString();
+            String history = user.getName() + " - Retirada: R$" + value + " - Data:" + timeNow.toString();
             user.getHistory().add(history);
         } else {
             System.out.println("Falta dinheiro");
         }
+    }
+
+    public Coin searchCoin(String extendedId) {
+        return CoinDao.getCoinDao().get(extendedId);
     }
 
 }

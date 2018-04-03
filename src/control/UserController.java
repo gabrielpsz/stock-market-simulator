@@ -103,5 +103,8 @@ public class UserController extends Controller implements ICrud {
         return false;
     }
 
+    public User searchUser(String login) {
+        return UserDao.getUserDao().get(login);
+    }
 
 }
