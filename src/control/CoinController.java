@@ -120,8 +120,6 @@ public class CoinController extends Controller implements ICrud {
         }
     }
 
-    // Continue from here warning!
-
     public Map<String, Double> createWallet() {
 
         Map<String, Double> wallet = new HashMap<>();
@@ -167,5 +165,7 @@ public class CoinController extends Controller implements ICrud {
     public Coin searchCoin(String extendedId) {
         return CoinDao.getCoinDao().get(extendedId);
     }
+
+    // Continue from here warning!
 
 }
