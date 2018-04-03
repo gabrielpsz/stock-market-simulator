@@ -33,18 +33,27 @@ public class CoinController extends Controller implements ICrud {
     public void create(Object coin) {
         if (coin != null) {
             Coin cn = (Coin) coin;
-            CoinDao.getCoinDao().put(cn);
+            if (read().isEmpty()) {
+                cn.setExtId("1");
+                CoinDao.getCoinDao().put(cn);
+            } else {
+                String lastId = read().get(read().size() - 1).getExtId();
+                int lastIntId = Integer.parseInt(lastId);
+                int newIntId = lastIntId + 1;
+                String newId = Integer.toString(newIntId);
+                cn.setExtId(newId);
+                CoinDao.getCoinDao().put(cn);
+            }
         }
     }
 
     @Override
-    public void delete(Object coin) {
-        if (coin != null) {
-            Coin cn = (Coin) coin;
-            if (CoinDao.getCoinDao().getList().isEmpty()) {
+    public void delete(String extendedId) {
+        if (extendedId != null) {
+            if (read().isEmpty()) {
                 return;
             } else {
-                CoinDao.getCoinDao().remove(cn.getExtId());
+                CoinDao.getCoinDao().remove(extendedId);
             }
         }
     }
@@ -54,7 +63,7 @@ public class CoinController extends Controller implements ICrud {
         if (coin != null) {
             Coin cn = (Coin) coin;
             if (CoinDao.getCoinDao().get(cn.getExtId()) != null) {
-                if (CoinDao.getCoinDao().getList().isEmpty()) {
+                if (read().isEmpty()) {
                     return;
                 } else {
                     CoinDao.getCoinDao().get(cn.getExtId()).setName(cn.getName());
@@ -84,6 +93,12 @@ public class CoinController extends Controller implements ICrud {
     public void receiveData(String name, double price) {
         Coin coin = new Coin(name, price);
         create(coin);
+    }
+
+    public void updateData(String extendedId, String name, double price) {
+        Coin coin = new Coin(name, price);
+        coin.setExtId(extendedId);
+        update(coin);
     }
 
     public static void main(String[] args) {

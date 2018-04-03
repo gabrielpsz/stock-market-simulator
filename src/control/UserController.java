@@ -23,18 +23,25 @@ public class UserController extends Controller implements ICrud {
     public void create(Object user) {
         if (user != null) {
             User cn = (User) user;
-            UserDao.getUserDao().put(cn);
+            if (read().isEmpty()) {
+                cn.setUserId(1);
+                UserDao.getUserDao().put(cn);
+            } else {
+                int lastId = read().get(read().size() - 1).getUserId();
+                int newId = lastId + 1;
+                cn.setUserId(newId);
+                UserDao.getUserDao().put(cn);
+            }
         }
     }
 
     @Override
-    public void delete(Object user) {
-        if (user != null) {
-            User cn = (User) user;
-            if (UserDao.getUserDao().getList().isEmpty()) {
+    public void delete(String login) {
+        if (login != null) {
+            if (read().isEmpty()) {
                 return;
             } else {
-                UserDao.getUserDao().remove(cn.getLogin());
+                UserDao.getUserDao().remove(login);
             }
         }
     }
@@ -44,7 +51,7 @@ public class UserController extends Controller implements ICrud {
         if (user != null) {
             User cn = (User) user;
             if (UserDao.getUserDao().get(cn.getLogin()) != null) {
-                if (UserDao.getUserDao().getList().isEmpty()) {
+                if (read().isEmpty()) {
                     return;
                 } else {
                     UserDao.getUserDao().get(cn.getLogin()).setCpf(cn.getCpf());
@@ -66,6 +73,11 @@ public class UserController extends Controller implements ICrud {
         create(user);
     }
 
+    public void updateData(String login, String password, String name, String cpf) {
+        User user = new User(login, password, name, cpf, CoinController.getCoinController().createWallet());
+        update(user);
+    }
+
     public static UserController getUserController() {
         if (userController == null) {
             userController = new UserController();
@@ -80,7 +92,7 @@ public class UserController extends Controller implements ICrud {
 
     public boolean authenticateUser(String login, String password) {
         if (UserDao.getUserDao().get(login) != null) {
-            if (UserDao.getUserDao().getList().isEmpty()) {
+            if (read().isEmpty()) {
                 return false;
             } else {
                 if (UserDao.getUserDao().get(login).getPassword().equals(password)) {

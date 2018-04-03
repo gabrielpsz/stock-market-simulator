@@ -97,4 +97,8 @@ public class CoinDao {
         return coinCache.values();
     }
 
+    public HashMap<String, Coin> getCoinCache() {
+        return coinCache;
+    }
+
 }

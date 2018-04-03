@@ -7,7 +7,7 @@ public interface ICrud<E> {
 
     void update(E e);
 
-    void delete(E e);
+    void delete(String e);
 
     ArrayList<E> read();
 }
