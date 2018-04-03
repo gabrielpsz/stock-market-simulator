@@ -1,15 +1,37 @@
 package view;
 
 import javafx.event.ActionEvent;
-import javafx.scene.layout.VBox;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TableView;
 
-public class FXMLWalletController extends VBox {
+public class FXMLWalletController {
 
+    @FXML
+    private MenuBar menuBar;
+
+    @FXML
+    private TableView<?> walletTable;
+
+    @FXML
+    private MenuItem menuSell;
 
     @FXML
     private Button walletDepositBtn;
+
+    @FXML
+    private MenuItem menuQuotation;
+
+    @FXML
+    private MenuItem menuDeposit;
+
+    @FXML
+    private MenuItem menuWallet;
+
+    @FXML
+    private Button walletBtnBuy;
 
     @FXML
     private Button walletCashWithBtn;
@@ -18,15 +40,27 @@ public class FXMLWalletController extends VBox {
     private Button walletBtnSell;
 
     @FXML
-    private Button walletBtnBuy;
-
-    @FXML
-    void walletBtnBuyAction(ActionEvent event) {
+    void goWalletAction(ActionEvent event) {
 
     }
 
     @FXML
-    void walletBtnSellAction(ActionEvent event) {
+    void goQuotationAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void goDepositAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void goSellAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void walletDepositBtnAction(ActionEvent event) {
 
     }
 
@@ -36,7 +70,13 @@ public class FXMLWalletController extends VBox {
     }
 
     @FXML
-    void walletDepositBtnAction(ActionEvent event) {
+    void walletBtnSellAction(ActionEvent event) {
 
     }
+
+    @FXML
+    void walletBtnBuyAction(ActionEvent event) {
+
+    }
+
 }

@@ -5,14 +5,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
 
-public class FXMLBuyCoinController extends VBox {
-
+public class FXMLBuyCoinController {
 
     @FXML
-    private ComboBox<?> buyCbBox;
+    private MenuBar menuBar;
 
     @FXML
     private TextField buyQuantText;
@@ -21,11 +21,45 @@ public class FXMLBuyCoinController extends VBox {
     private Label buyValueLabel;
 
     @FXML
+    private MenuItem menuSell;
+
+    @FXML
+    private MenuItem menuQuotation;
+
+    @FXML
+    private MenuItem menuDeposit;
+
+    @FXML
     private Button buyBtn;
+
+    @FXML
+    private MenuItem menuWallet;
 
     @FXML
     private Button buyBtnCancel;
 
+    @FXML
+    private ComboBox<?> buyCbBoxCoin;
+
+    @FXML
+    void goWalletAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void goQuotationAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void goDepositAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    void goSellAction(ActionEvent event) {
+
+    }
 
     @FXML
     void buyBtnAction(ActionEvent event) {
@@ -36,4 +70,5 @@ public class FXMLBuyCoinController extends VBox {
     void buyBtnCancelAction(ActionEvent event) {
 
     }
+
 }
