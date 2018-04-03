@@ -56,6 +56,16 @@ public class UserController extends Controller implements ICrud {
         }
     }
 
+    @Override
+    public ArrayList<User> read() {
+        return new ArrayList<User>(UserDao.getUserDao().getList());
+    }
+
+    public void receiveData(String login, String password, String name, String cpf) {
+        User user = new User(login, password, name, cpf, CoinController.getCoinController().createWallet());
+        create(user);
+    }
+
     public static UserController getUserController() {
         if (userController == null) {
             userController = new UserController();
@@ -67,15 +77,6 @@ public class UserController extends Controller implements ICrud {
         UserController.userController = userController;
     }
 
-    @Override
-    public ArrayList<User> read() {
-        return new ArrayList<User>(UserDao.getUserDao().getList());
-    }
-
-    public void receiveData(String login, String password, String name, String cpf) {
-        User user = new User(login, password, name, cpf, CoinController.getCoinController().createWallet());
-        create(user);
-    }
 
     public boolean authenticateUser(String login, String password) {
         if (UserDao.getUserDao().get(login) != null) {

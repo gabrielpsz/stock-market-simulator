@@ -65,6 +65,11 @@ public class CoinController extends Controller implements ICrud {
         }
     }
 
+    @Override
+    public ArrayList<Coin> read() {
+        return new ArrayList<Coin>(CoinDao.getCoinDao().getList());
+    }
+
     public static CoinController getCoinController() {
         if (coinController == null) {
             coinController = new CoinController();
@@ -74,11 +79,6 @@ public class CoinController extends Controller implements ICrud {
 
     public static void setCoinController(CoinController coinController) {
         CoinController.coinController = coinController;
-    }
-
-    @Override
-    public ArrayList<Coin> read() {
-        return new ArrayList<Coin>(CoinDao.getCoinDao().getList());
     }
 
     public void receiveData(String name, double price) {
