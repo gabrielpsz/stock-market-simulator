@@ -97,4 +97,7 @@ public class UserDao {
         return userCache.values();
     }
 
+    public HashMap<String, User> getUserCache() {
+        return userCache;
+    }
 }
