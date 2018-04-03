@@ -85,24 +85,63 @@ public class CoinController extends Controller implements DAO {
         save(coin);
     }
 
-    public Map<String, Double> createWallet() {
-        Map<String, Double> wallet = new HashMap<>();
-        wallet.put(real.getExtId(), real.getPrice() * 0);
-        wallet.put(putin.getExtId(), putin.getPrice() * 0);
-        wallet.put(doge.getExtId(), doge.getPrice() * 0);
-        wallet.put(marreta.getExtId(), marreta.getPrice() * 0);
-        wallet.put(recayd.getExtId(), recayd.getPrice() * 0);
+    public static void main(String[] args) {
+        CoinController coinRegister = new CoinController();
+        User user = new User("Teste", "teste", "Teste", "TOMANOCU", coinRegister.createWallet());
+        coinRegister.depositReal(user, 200);
+        Coin coinOut = coinRegister.real;
+        Coin coinIN = coinRegister.doge;
+        coinRegister.exchange(user, 100, coinOut, coinIN);
+        System.out.println(user.getWallet());
+        coinRegister.withdrawReal(user, 80);
+        System.out.println(user.getWallet());
+        coinRegister.depositReal(user, 300);
+        System.out.println(user.getHistory());
 
-        return wallet;
     }
 
     // Continue from here warning!
 
+    public Map<String, Double> createWallet() {
+        Map<String, Double> wallet = new HashMap<>();
+        wallet.put(real.getName(), real.getPrice() * 0);
+        wallet.put(putin.getName(), putin.getPrice() * 0);
+        wallet.put(doge.getName(), doge.getPrice() * 0);
+        wallet.put(marreta.getName(), marreta.getPrice() * 0);
+        wallet.put(recayd.getName(), recayd.getPrice() * 0);
+
+        return wallet;
+    }
+
     public void depositReal(User user, double value) {
         user.getWallet().replace("Real", value);
         Instant timeNow = Instant.now();
-        String history = user.getName() + "-" + value + "-" + timeNow.toString();
-        user.getDepositHistory().add(history);
+        String history = user.getName() + "- Depósito: R$" + value + "-Data:" + timeNow.toString();
+        user.getHistory().add(history);
+    }
+
+    public void exchange(User user, double value, Coin coinOut, Coin coinIn) {
+        if (value > user.getWallet().get(coinOut.getName())) {
+            System.out.println("Falta dinheiro");
+        } else {
+            double walletCoinOut = user.getWallet().get(coinOut.getName()) - value;
+            double walletCoinIn = user.getWallet().get(coinIn.getName());
+            double coinOutToCoinIn = (value / coinIn.getPrice()) + walletCoinIn;
+
+            user.getWallet().replace(coinOut.getName(), walletCoinOut);
+            user.getWallet().replace(coinIn.getName(), coinOutToCoinIn);
+        }
+    }
+
+    public void withdrawReal(User user, double value) {
+        if (value <= user.getWallet().get("Real")) {
+            user.getWallet().replace("Real", (user.getWallet().get("Real") - value));
+            Instant timeNow = Instant.now();
+            String history = user.getName() + "- Retirada: R$" + value + "-Data:" + timeNow.toString();
+            user.getHistory().add(history);
+        } else {
+            System.out.println("Falta dinheiros!");
+        }
     }
 
 }

@@ -1,6 +1,8 @@
 package model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class User implements Serializable {
@@ -11,6 +13,7 @@ public class User implements Serializable {
     private String name;
     private String cpf;
     private Map<String, Double> wallet;
+    private List<String> history;
 
     public User(String login, String password, String name, String cpf, Map<String, Double> wallet) {
         super();
@@ -19,6 +22,7 @@ public class User implements Serializable {
         this.name = name;
         this.cpf = cpf;
         this.wallet = wallet;
+        this.history = new ArrayList<>();
     }
 
     @Override
@@ -79,5 +83,13 @@ public class User implements Serializable {
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
+    }
+
+    public List<String> getHistory() {
+        return history;
+    }
+
+    public void setHistory(List<String> history) {
+        this.history = history;
     }
 }
