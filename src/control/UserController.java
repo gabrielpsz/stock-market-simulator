@@ -1,13 +1,12 @@
 package control;
 
-import dao.CoinDao;
-import dao.DAO;
 import dao.UserDao;
+import interfaces.ICrud;
 import model.User;
 
 import java.util.ArrayList;
 
-public class UserController extends Controller implements DAO {
+public class UserController extends Controller implements ICrud {
 
     private static UserController userController;
 
@@ -21,7 +20,7 @@ public class UserController extends Controller implements DAO {
     }
 
     @Override
-    public void save(Object user) {
+    public void create(Object user) {
         if (user != null) {
             User cn = (User) user;
             UserDao.getUserDao().put(cn);
@@ -68,13 +67,14 @@ public class UserController extends Controller implements DAO {
         UserController.userController = userController;
     }
 
-    public ArrayList<User> listUsers() {
+    @Override
+    public ArrayList<User> read() {
         return new ArrayList<User>(UserDao.getUserDao().getList());
     }
 
     public void receiveData(String login, String password, String name, String cpf) {
         User user = new User(login, password, name, cpf, CoinController.getCoinController().createWallet());
-        save(user);
+        create(user);
     }
 
     public boolean authenticateUser(String login, String password) {

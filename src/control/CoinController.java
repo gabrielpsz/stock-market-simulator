@@ -1,7 +1,7 @@
 package control;
 
 import dao.CoinDao;
-import dao.DAO;
+import interfaces.ICrud;
 import model.Coin;
 import model.User;
 
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CoinController extends Controller implements DAO {
+public class CoinController extends Controller implements ICrud {
 
     private static CoinController coinController;
 
@@ -30,7 +30,7 @@ public class CoinController extends Controller implements DAO {
     }
 
     @Override
-    public void save(Object coin) {
+    public void create(Object coin) {
         if (coin != null) {
             Coin cn = (Coin) coin;
             CoinDao.getCoinDao().put(cn);
@@ -76,13 +76,14 @@ public class CoinController extends Controller implements DAO {
         CoinController.coinController = coinController;
     }
 
-    public ArrayList<Coin> listCoins() {
+    @Override
+    public ArrayList<Coin> read() {
         return new ArrayList<Coin>(CoinDao.getCoinDao().getList());
     }
 
     public void receiveData(String name, double price) {
         Coin coin = new Coin(name, price);
-        save(coin);
+        create(coin);
     }
 
     public static void main(String[] args) {
@@ -116,7 +117,7 @@ public class CoinController extends Controller implements DAO {
     public void depositReal(User user, double value) {
         user.getWallet().replace("Real", value);
         Instant timeNow = Instant.now();
-        String history = user.getName() + "- Depósito: R$" + value + "-Data:" + timeNow.toString();
+        String history = user.getName() + "- Depósito: R$" + value + "- Data:" + timeNow.toString();
         user.getHistory().add(history);
     }
 
@@ -137,10 +138,10 @@ public class CoinController extends Controller implements DAO {
         if (value <= user.getWallet().get("Real")) {
             user.getWallet().replace("Real", (user.getWallet().get("Real") - value));
             Instant timeNow = Instant.now();
-            String history = user.getName() + "- Retirada: R$" + value + "-Data:" + timeNow.toString();
+            String history = user.getName() + "- Retirada: R$" + value + "- Data:" + timeNow.toString();
             user.getHistory().add(history);
         } else {
-            System.out.println("Falta dinheiros!");
+            System.out.println("Falta dinheiro");
         }
     }
 
