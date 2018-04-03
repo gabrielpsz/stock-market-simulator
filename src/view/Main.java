@@ -8,12 +8,36 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
+    private static Stage stage;
+
+    private static Scene loginScene;
+    private static Scene registerUserScene;
+
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("RegisterUser.fxml"));
-        primaryStage.setTitle("Login");
-        primaryStage.setScene(new Scene(root));
+        stage = primaryStage;
+
+        Parent login = FXMLLoader.load(getClass().getResource("Login.fxml"));
+        loginScene = new Scene(login);
+
+        Parent registerUser = FXMLLoader.load(getClass().getResource("RegisterUser.fxml"));
+        registerUserScene = new Scene(registerUser);
+
+        primaryStage.setScene(loginScene);
         primaryStage.show();
+    }
+
+    public static void changeScreen(String scr) {
+        switch (scr) {
+            case "login":
+                stage.setScene(loginScene);
+                break;
+            case "registerUser":
+                stage.setScene(registerUserScene);
+                break;
+            default:
+                break;
+        }
     }
 
 

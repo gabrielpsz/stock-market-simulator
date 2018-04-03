@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
@@ -13,7 +14,13 @@ public class FXMLRegisterUserController {
 
 
     @FXML
-    private TextField registerUserName;
+    private Button registerUserBtnCancel;
+
+    @FXML
+    private Button registerUserBtnSave;
+
+    @FXML
+    private PasswordField registerUserPassword;
 
     @FXML
     private TextField registerUserCPF;
@@ -22,13 +29,10 @@ public class FXMLRegisterUserController {
     private TextField registerUserLoginName;
 
     @FXML
-    private PasswordField registerUserPassword;
+    private MenuItem menuQuit;
 
     @FXML
-    private Button registerUserBtnCancel;
-
-    @FXML
-    private Button registerUserBtnSave;
+    private TextField registerUserName;
 
     public FXMLRegisterUserController() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("RegisterUser.fxml"));
@@ -37,10 +41,17 @@ public class FXMLRegisterUserController {
     }
 
     @FXML
-    public void registerUserBtnCancelAction(ActionEvent event) {
+    void goQuitAction(ActionEvent event) {
+        System.exit(0);
     }
 
     @FXML
-    public void registerUserBtnSaveAction(ActionEvent event) {
+    void registerUserBtnCancelAction(ActionEvent event) {
+        Main.changeScreen("login");
+    }
+
+    @FXML
+    void registerUserBtnSaveAction(ActionEvent event) {
+
     }
 }
