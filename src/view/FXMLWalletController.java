@@ -33,6 +33,9 @@ public class FXMLWalletController implements Initializable {
     private TableColumn<String, String> coinColumn;
 
     @FXML
+    private TableColumn<String, String> valueColumn;
+
+    @FXML
     private Button walletBtnSell;
 
     @FXML

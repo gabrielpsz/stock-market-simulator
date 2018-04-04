@@ -126,6 +126,14 @@ public class UserController extends Controller implements ICrud {
         }
         return false;
     }
+    public List<String> loadCoinName(){
+        List<String> coinNameList = getSessionUser().getWallet().keySet().stream().collect(Collectors.toList());
+        return coinNameList;
+    }
+    public List<Double> loadCoinValue(){
+        List<Double> coinValuesList = getSessionUser().getWallet().values().stream().collect(Collectors.toList());
+        return coinValuesList;
+    }
 
     public List<String> listWallet() {
         if (getSessionUser() != null) {
