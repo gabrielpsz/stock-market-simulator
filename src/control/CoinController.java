@@ -166,6 +166,13 @@ public class CoinController extends Controller implements ICrud {
         return CoinDao.getCoinDao().get(extendedId);
     }
 
+    public boolean verifyCoinExistance(String extendedId) {
+        if (CoinDao.getCoinDao().get(extendedId) != null) {
+            return true;
+        }
+        return false;
+    }
+
     // Continue from here warning!
 
 }

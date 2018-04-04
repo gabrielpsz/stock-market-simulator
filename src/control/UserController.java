@@ -107,4 +107,11 @@ public class UserController extends Controller implements ICrud {
         return UserDao.getUserDao().get(login);
     }
 
+    public boolean verifyUserExistance(String login) {
+        if (UserDao.getUserDao().get(login) != null) {
+            return true;
+        }
+        return false;
+    }
+
 }
