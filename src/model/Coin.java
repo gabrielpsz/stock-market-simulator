@@ -16,11 +16,7 @@ public class Coin implements Serializable {
 
     @Override
     public String toString() {
-        return "Coin{" +
-                "extId='" + extId + '\'' +
-                ", name='" + name + '\'' +
-                ", price=" + price +
-                '}';
+        return getName();
     }
 
     public String getExtId() {

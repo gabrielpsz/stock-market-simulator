@@ -6,7 +6,9 @@ import model.User;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class UserController extends Controller implements ICrud {
 
@@ -125,9 +127,18 @@ public class UserController extends Controller implements ICrud {
         return false;
     }
 
-    public Collection<Double> listWallet() {
+    public List<String> listWallet() {
         if (getSessionUser() != null) {
-            return getSessionUser().getWalletList();
+            List<String> walletList = new ArrayList<>();
+            List<String> coinNameList = getSessionUser().getWallet().keySet().stream().collect(Collectors.toList());
+            List<Double> coinValuesList = getSessionUser().getWallet().values().stream().collect(Collectors.toList());
+
+            for (int i = 0; i < 5; i++) {
+                String coin = coinNameList.get(i) + coinValuesList.get(i).toString();
+                System.out.println(coin);
+                walletList.add(coin);
+            }
+            return walletList;
         }
         return null;
     }

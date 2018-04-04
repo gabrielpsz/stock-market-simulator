@@ -1,16 +1,19 @@
 package view;
 
+import control.UserController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
+import javafx.stage.Stage;
 
-import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class FXMLLoginController {
+public class FXMLLoginController implements Initializable {
+
+    private static Stage stage;
 
     @FXML
     private Button loginBtnRegisterUser;
@@ -28,25 +31,46 @@ public class FXMLLoginController {
     private MenuItem menuQuit;
 
     public FXMLLoginController() {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Login.fxml"));
-        fxmlLoader.setRoot(this);
-        fxmlLoader.setController(this);
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
 
     }
 
     @FXML
-    protected void goQuitAction(ActionEvent event) {
-        System.exit(0);
+    public void goQuitAction() {
+        Login.getStage().close();
     }
 
     @FXML
-    protected void loginBtnRegisterUserAction(ActionEvent event) {
-        Main.changeScreen("registerUser");
+    public void loginBtnRegisterUserAction() {
+        RegisterUser registerUser = new RegisterUser();
+        goQuitAction();
+        try {
+            registerUser.start(new Stage());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
-    protected void LoginBtnAction(ActionEvent event) {
+    public void LoginBtnAction() {
+        if (UserController.getUserController().authenticateUser(LoginUserText.getText(), LoginUserPass.getText())) {
+            Quotation quotation = new Quotation();
+            goQuitAction();
+            try {
+                quotation.start(new Stage());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }else{
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erro");
+            alert.setHeaderText("Login Inválido");
+            alert.setContentText("Verifique os dados digitados");
+            alert.show();
+        }
 
     }
-
 }

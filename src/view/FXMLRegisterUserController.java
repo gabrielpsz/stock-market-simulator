@@ -1,14 +1,16 @@
 package view;
 
-import javafx.event.ActionEvent;
+import control.CoinController;
+import control.UserController;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+import model.User;
 
-import java.io.IOException;
+import java.util.Map;
 
 public class FXMLRegisterUserController {
 
@@ -35,23 +37,37 @@ public class FXMLRegisterUserController {
     private TextField registerUserName;
 
     public FXMLRegisterUserController() {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("RegisterUser.fxml"));
-        fxmlLoader.setRoot(this);
-        fxmlLoader.setController(this);
     }
 
     @FXML
-    void goQuitAction(ActionEvent event) {
-        System.exit(0);
+    public void goQuitAction() {
+        RegisterUser.getStage().close();
     }
 
     @FXML
-    void registerUserBtnCancelAction(ActionEvent event) {
-        Main.changeScreen("login");
+    public void registerUserBtnCancelAction() {
+        Login login = new Login();
+        goQuitAction();
+        try {
+            login.start(new Stage());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
-    void registerUserBtnSaveAction(ActionEvent event) {
-
+    public void registerUserBtnSaveAction() {
+        UserController userCtrl = UserController.getUserController();
+        User user = new User(registerUserLoginName.getText(), registerUserPassword.getText(),
+                registerUserName.getText(), registerUserCPF.getText(), CoinController.getCoinController().createWallet());
+        userCtrl.create(user);
+        Login login = new Login();
+        goQuitAction();
+        try {
+            login.start(new Stage());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
 }

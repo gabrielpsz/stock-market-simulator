@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 public class FXMLSellCoinController {
 
@@ -42,22 +43,63 @@ public class FXMLSellCoinController {
     private Label sellValueLabel;
 
     @FXML
-    void goWalletAction(ActionEvent event) {
-
+    public void goQuitAction() {
+        SellCoin.getStage().close();
     }
 
     @FXML
-    void goQuotationAction(ActionEvent event) {
-
+    public void goWalletAction() {
+        Wallet wallet = new Wallet();
+        goQuitAction();
+        try {
+            wallet.start(new Stage());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
-    void goDepositAction(ActionEvent event) {
-
+    public void goQuotationAction() {
+        Quotation quotation = new Quotation();
+        goQuitAction();
+        try {
+            quotation.start(new Stage());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
-    void goSellAction(ActionEvent event) {
+    public void goDepositAction() {
+        CashDeposit deposit = new CashDeposit();
+        goQuitAction();
+        try {
+            deposit.start(new Stage());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void goBuyAction() {
+        BuyCoin buyCoin = new BuyCoin();
+        goQuitAction();
+        try {
+            buyCoin.start(new Stage());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void goSellAction() {
+        SellCoin sellCoin = new SellCoin();
+        goQuitAction();
+        try {
+            sellCoin.start(new Stage());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 

@@ -32,6 +32,7 @@
                         <MenuItem fx:id="menuDeposit" mnemonicParsing="false" onAction="#goDepositAction"
                                   text="Depositar"/>
                         <MenuItem fx:id="menuSell" mnemonicParsing="false" onAction="#goSellAction" text="Vender"/>
+                        <MenuItem fx:id="menuBuy" mnemonicParsing="false" onAction="#goBuyAction" text="Comprar"/>
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Editar">
