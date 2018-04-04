@@ -26,14 +26,15 @@ public class Injector {
         CoinController.getCoinController().create(doge);
         CoinController.getCoinController().create(marreta);
         CoinController.getCoinController().create(recayd);
+        System.out.println(CoinController.getCoinController().read());
 
-        User marcelo = new User("mbros", "123123", "Marcelo Brosowicz de Paulo", "86454110087", CoinController.getCoinController().createWallet());
-        User victor = new User("goulartvic", "1928", "Victor Pereira Goulart", "12541462964", CoinController.getCoinController().createWallet());
-        User rodolfo = new User("rodolfoip", "12345", "Rodolfe Ilce Pereira", "83306016926", CoinController.getCoinController().createWallet());
-
-        UserController.getUserController().create(marcelo);
-        UserController.getUserController().create(victor);
-        UserController.getUserController().create(rodolfo);
+//        User marcelo = new User("mbros", "123123", "Marcelo Brosowicz de Paulo", "86454110087", CoinController.getCoinController().createWallet());
+//        User victor = new User("goulartvic", "1928", "Victor Pereira Goulart", "12541462964", CoinController.getCoinController().createWallet());
+//        User rodolfo = new User("rodolfoip", "12345", "Rodolfe Ilce Pereira", "83306016926", CoinController.getCoinController().createWallet());
+//
+//        UserController.getUserController().create(marcelo);
+//        UserController.getUserController().create(victor);
+//        UserController.getUserController().create(rodolfo);
 
 //        CoinController.getCoinController().depositReal(5000.00);
 //        Coin coinOut = CoinController.getCoinController().searchCoin("Real");

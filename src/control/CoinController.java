@@ -93,24 +93,25 @@ public class CoinController extends Controller implements ICrud {
         update(coin);
     }
 
-//    @Override
-//    public void create(Object coin) {
-//        if (coin != null) {
-//            Coin cn = (Coin) coin;
-////            TODO - Arrumar essa porra
+    @Override
+    public void create(Object coin) {
+        if (coin != null) {
+            Coin cn = (Coin) coin;
+            System.out.println(cn.getName() + " " + cn.getPrice());
+            CoinDao.getCoinDao().put(cn);
+//            TODO - Arrumar essa porra
 //            if (read().isEmpty()) {
-//                cn.setExtId("1");
-//                CoinDao.getCoinDao().put(cn);
+//                cn.setName("Real");
 //            } else {
-//                String lastId = read().get(read().size() - 1).getExtId();
+//                String lastId = read().get(read().size() - 1).getName();
 //                int lastIntId = Integer.parseInt(lastId);
 //                int newIntId = lastIntId + 1;
 //                String newId = Integer.toString(newIntId);
 //                cn.setExtId(newId);
 //                CoinDao.getCoinDao().put(cn);
 //            }
-//        }
-//    }
+        }
+    }
 
     public Map<String, Double> createWallet() {
 

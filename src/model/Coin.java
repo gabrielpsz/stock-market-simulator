@@ -15,7 +15,7 @@ public class Coin implements Serializable {
 
     @Override
     public String toString() {
-        return getName();
+        return getName() +" - "+ getPrice();
     }
 
     public String getName() {
