@@ -125,7 +125,7 @@ public class CoinController extends Controller implements ICrud {
             user.getWallet().replace(coinIn.getExtId(), coinOutToCoinIn);
 
             Instant timeNow = Instant.now();
-            String history = user.getName() + " - Venda De: " + value + coinOut + "Para: " + coinOutToCoinIn + coinIn + " - Data: " + timeNow.toString();
+            String history = user.getName() + " - Venda De: " + value + " " + coinOut.getName() + " Para: " + coinOutToCoinIn + " " + coinIn.getName() + " - Data: " + timeNow.toString();
             user.getHistory().add(history);
         }
     }
