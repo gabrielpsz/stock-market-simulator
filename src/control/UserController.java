@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public class UserController extends Controller implements ICrud {
 
     private static UserController userController;
+    private static User sessionUser;
 
     public UserController() {
         super();
@@ -89,18 +90,12 @@ public class UserController extends Controller implements ICrud {
         UserController.userController = userController;
     }
 
+    public static User getSessionUser() {
+        return sessionUser;
+    }
 
-    public boolean authenticateUser(String login, String password) {
-        if (UserDao.getUserDao().get(login) != null) {
-            if (read().isEmpty()) {
-                return false;
-            } else {
-                if (UserDao.getUserDao().get(login).getPassword().equals(password)) {
-                    return true;
-                }
-            }
-        }
-        return false;
+    public static void setSessionUser(User sessionUser) {
+        UserController.getUserController().sessionUser = sessionUser;
     }
 
     public User searchUser(String login) {
@@ -114,4 +109,17 @@ public class UserController extends Controller implements ICrud {
         return false;
     }
 
+    public boolean authenticateUser(String login, String password) {
+        if (UserDao.getUserDao().get(login) != null) {
+            if (read().isEmpty()) {
+                return false;
+            } else {
+                if (UserDao.getUserDao().get(login).getPassword().equals(password)) {
+                    setSessionUser(UserDao.getUserDao().get(login));
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }

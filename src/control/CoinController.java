@@ -1,6 +1,7 @@
 package control;
 
 import dao.CoinDao;
+import dao.UserDao;
 import interfaces.ICrud;
 import model.Coin;
 import model.User;
@@ -106,36 +107,36 @@ public class CoinController extends Controller implements ICrud {
         return wallet;
     }
 
-    public void depositReal(User user, double value) {
-        user.getWallet().replace("1", value);
+    public void depositReal(double value) {
+        UserController.getUserController().getSessionUser().getWallet().replace("1", value);
         Instant timeNow = Instant.now();
-        String history = user.getName() + " - Depósito: R$" + value + " - Data:" + timeNow.toString();
-        user.getHistory().add(history);
+        String history = UserController.getUserController().getSessionUser().getName() + " - Depósito: R$" + value + " - Data:" + timeNow.toString();
+        UserController.getUserController().getSessionUser().getHistory().add(history);
     }
 
-    public void exchange(User user, double value, Coin coinOut, Coin coinIn) {
-        if (value > user.getWallet().get(coinOut.getExtId())) {
+    public void exchange(double value, Coin coinOut, Coin coinIn) {
+        if (value > UserController.getUserController().getSessionUser().getWallet().get(coinOut.getExtId())) {
             System.out.println("Falta dinheiro");
         } else {
-            double walletCoinOut = user.getWallet().get(coinOut.getExtId()) - value;
-            double walletCoinIn = user.getWallet().get(coinIn.getExtId());
+            double walletCoinOut = UserController.getUserController().getSessionUser().getWallet().get(coinOut.getExtId()) - value;
+            double walletCoinIn = UserController.getUserController().getSessionUser().getWallet().get(coinIn.getExtId());
             double coinOutToCoinIn = (value / coinIn.getPrice()) + walletCoinIn;
 
-            user.getWallet().replace(coinOut.getExtId(), walletCoinOut);
-            user.getWallet().replace(coinIn.getExtId(), coinOutToCoinIn);
+            UserController.getUserController().getSessionUser().getWallet().replace(coinOut.getExtId(), walletCoinOut);
+            UserController.getUserController().getSessionUser().getWallet().replace(coinIn.getExtId(), coinOutToCoinIn);
 
             Instant timeNow = Instant.now();
-            String history = user.getName() + " - Venda De: " + value + " " + coinOut.getName() + " Para: " + coinOutToCoinIn + " " + coinIn.getName() + " - Data: " + timeNow.toString();
-            user.getHistory().add(history);
+            String history = UserController.getUserController().getSessionUser().getName() + " - Venda De: " + value + " " + coinOut.getName() + " Para: " + coinOutToCoinIn + " " + coinIn.getName() + " - Data: " + timeNow.toString();
+            UserController.getUserController().getSessionUser().getHistory().add(history);
         }
     }
 
-    public void withdrawReal(User user, double value) {
-        if (value <= user.getWallet().get("1")) {
-            user.getWallet().replace("1", (user.getWallet().get("1") - value));
+    public void withdrawReal(double value) {
+        if (value <= UserController.getUserController().getSessionUser().getWallet().get("1")) {
+            UserController.getUserController().getSessionUser().getWallet().replace("1", (UserController.getUserController().getSessionUser().getWallet().get("1") - value));
             Instant timeNow = Instant.now();
-            String history = user.getName() + " - Retirada: R$" + value + " - Data:" + timeNow.toString();
-            user.getHistory().add(history);
+            String history = UserController.getUserController().getSessionUser().getName() + " - Retirada: R$" + value + " - Data:" + timeNow.toString();
+            UserController.getUserController().getSessionUser().getHistory().add(history);
         } else {
             System.out.println("Falta dinheiro");
         }

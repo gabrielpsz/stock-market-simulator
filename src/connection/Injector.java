@@ -35,24 +35,24 @@ public class Injector {
         UserController.getUserController().create(victor);
         UserController.getUserController().create(rodolfo);
 
-        CoinController.getCoinController().depositReal(UserController.getUserController().searchUser("mbros"), 5000.00);
+        CoinController.getCoinController().depositReal(5000.00);
         Coin coinOut = CoinController.getCoinController().searchCoin("1");
         Coin coinIN = CoinController.getCoinController().searchCoin("3");
-        CoinController.getCoinController().exchange(UserController.getUserController().searchUser("mbros"), 100.00, coinOut, coinIN);
-        CoinController.getCoinController().withdrawReal(UserController.getUserController().searchUser("mbros"), 80.00);
-        CoinController.getCoinController().depositReal(UserController.getUserController().searchUser("mbros"), 300.00);
+        CoinController.getCoinController().exchange(100.00, coinOut, coinIN);
+        CoinController.getCoinController().withdrawReal(80.00);
+        CoinController.getCoinController().depositReal(300.00);
         System.out.println(UserController.getUserController().searchUser("mbros").getHistory());
-        CoinController.getCoinController().depositReal(UserController.getUserController().searchUser("goulartvic"), 300.00);
+        CoinController.getCoinController().depositReal(300.00);
         Coin coinOut1 = CoinController.getCoinController().searchCoin("1");
         Coin coinIN2 = CoinController.getCoinController().searchCoin("4");
-        CoinController.getCoinController().exchange(UserController.getUserController().searchUser("goulartvic"), 100.00, coinOut1, coinIN2);
-        CoinController.getCoinController().withdrawReal(UserController.getUserController().searchUser("goulartvic"), 80.00);
+        CoinController.getCoinController().exchange(100.00, coinOut1, coinIN2);
+        CoinController.getCoinController().withdrawReal(80.00);
         System.out.println(UserController.getUserController().searchUser("goulartvic").getHistory());
-        CoinController.getCoinController().depositReal(UserController.getUserController().searchUser("rodolfoip"), 300.00);
+        CoinController.getCoinController().depositReal(300.00);
         Coin coinOut2 = CoinController.getCoinController().searchCoin("1");
         Coin coinIN3 = CoinController.getCoinController().searchCoin("5");
-        CoinController.getCoinController().exchange(UserController.getUserController().searchUser("rodolfoip"), 150.00, coinOut2, coinIN3);
-        CoinController.getCoinController().withdrawReal(UserController.getUserController().searchUser("rodolfoip"), 90.00);
+        CoinController.getCoinController().exchange(150.00, coinOut2, coinIN3);
+        CoinController.getCoinController().withdrawReal(90.00);
         System.out.println(UserController.getUserController().searchUser("rodolfoip").getHistory());
     }
 
