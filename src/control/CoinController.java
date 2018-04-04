@@ -110,7 +110,7 @@ public class CoinController extends Controller implements ICrud {
     public void depositReal(double value) {
         UserController.getUserController().getSessionUser().getWallet().replace("1", value);
         Instant timeNow = Instant.now();
-        String history = UserController.getUserController().getSessionUser().getName() + " - Depósito: R$" + value + " - Data:" + timeNow.toString();
+        String history = UserController.getUserController().getSessionUser().getName() + " - Depósito: R$" + value + " - Data: " + timeNow.toString();
         UserController.getUserController().getSessionUser().getHistory().add(history);
     }
 
@@ -135,7 +135,7 @@ public class CoinController extends Controller implements ICrud {
         if (value <= UserController.getUserController().getSessionUser().getWallet().get("1")) {
             UserController.getUserController().getSessionUser().getWallet().replace("1", (UserController.getUserController().getSessionUser().getWallet().get("1") - value));
             Instant timeNow = Instant.now();
-            String history = UserController.getUserController().getSessionUser().getName() + " - Retirada: R$" + value + " - Data:" + timeNow.toString();
+            String history = UserController.getUserController().getSessionUser().getName() + " - Retirada: R$" + value + " - Data: " + timeNow.toString();
             UserController.getUserController().getSessionUser().getHistory().add(history);
         } else {
             System.out.println("Falta dinheiro");
