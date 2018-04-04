@@ -107,7 +107,7 @@ public class CoinController extends Controller implements ICrud {
     }
 
     public void depositReal(User user, double value) {
-        user.getWallet().replace("Real", value);
+        user.getWallet().replace("1", value);
         Instant timeNow = Instant.now();
         String history = user.getName() + " - Depósito: R$" + value + " - Data:" + timeNow.toString();
         user.getHistory().add(history);
@@ -123,6 +123,10 @@ public class CoinController extends Controller implements ICrud {
 
             user.getWallet().replace(coinOut.getExtId(), walletCoinOut);
             user.getWallet().replace(coinIn.getExtId(), coinOutToCoinIn);
+
+            Instant timeNow = Instant.now();
+            String history = user.getName() + " - Venda De: " + value + coinOut + "Para: " + coinOutToCoinIn + coinIn + " - Data: " + timeNow.toString();
+            user.getHistory().add(history);
         }
     }
 
