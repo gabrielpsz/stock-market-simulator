@@ -23,31 +23,6 @@ public class CoinController extends Controller implements ICrud {
 
     }
 
-    public static void main(String[] args) {
-//        Coin real = new Coin("Real", 1);
-//        Coin putin = new Coin("Putin", 8.12);
-//        Coin doge = new Coin("Doge", 3.5);
-//        Coin marreta = new Coin("Marreta", 1.43);
-//        Coin recayd = new Coin("Recayd", 4.09);
-//        getCoinController().create(real);
-//        getCoinController().create(putin);
-//        getCoinController().create(doge);
-//        getCoinController().create(marreta);
-//        getCoinController().create(recayd);
-//        User user = new User("Teste", "teste", "Teste", "TOMANOCU", getCoinController().createWallet());
-//        UserController.getUserController().create(user);
-        getCoinController().depositReal(UserController.getUserController().searchUser("Teste"), 200);
-        Coin coinOut = getCoinController().searchCoin("1");
-        Coin coinIN = getCoinController().searchCoin("3");
-        getCoinController().exchange(UserController.getUserController().searchUser("Teste"), 100, coinOut, coinIN);
-        System.out.println(UserController.getUserController().searchUser("Teste").getWallet());
-        getCoinController().withdrawReal(UserController.getUserController().searchUser("Teste"), 80);
-        System.out.println(UserController.getUserController().searchUser("Teste").getWallet());
-        getCoinController().depositReal(UserController.getUserController().searchUser("Teste"), 300);
-        System.out.println(UserController.getUserController().searchUser("Teste").getHistory());
-
-    }
-
     @Override
     public void delete(String extendedId) {
         if (extendedId != null) {
