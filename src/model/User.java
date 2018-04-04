@@ -2,6 +2,7 @@ package model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -44,6 +45,9 @@ public class User implements Serializable {
         this.wallet = wallet;
     }
 
+    public Collection<Double> getWalletList() {
+        return wallet.values();
+    }
 
     public int getUserId() {
         return userId;
