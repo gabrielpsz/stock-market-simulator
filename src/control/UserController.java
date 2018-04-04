@@ -134,7 +134,7 @@ public class UserController extends Controller implements ICrud {
             List<Double> coinValuesList = getSessionUser().getWallet().values().stream().collect(Collectors.toList());
 
             for (int i = 0; i < 5; i++) {
-                String coin = coinNameList.get(i) + coinValuesList.get(i).toString();
+                String coin = "Name: "+coinNameList.get(i)+ "-R$" + coinValuesList.get(i).toString();
                 System.out.println(coin);
                 walletList.add(coin);
             }
@@ -142,4 +142,5 @@ public class UserController extends Controller implements ICrud {
         }
         return null;
     }
+
 }

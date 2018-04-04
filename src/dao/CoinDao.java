@@ -54,7 +54,7 @@ public class CoinDao {
 
     public void put(Coin Coin) {
         if (Coin != null) {
-            coinCache.put(Coin.getExtId(), Coin);
+            coinCache.put(Coin.getName(), Coin);
             persist();
         }
     }

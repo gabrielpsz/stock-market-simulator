@@ -1,10 +1,7 @@
 package model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class User implements Serializable {
 
@@ -22,7 +19,7 @@ public class User implements Serializable {
         this.password = password;
         this.name = name;
         this.cpf = cpf;
-        this.wallet = wallet;
+        this.wallet = new HashMap<>(wallet);
         this.history = new ArrayList<>();
     }
 

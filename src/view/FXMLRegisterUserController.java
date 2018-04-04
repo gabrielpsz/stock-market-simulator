@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.User;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class FXMLRegisterUserController {
@@ -59,7 +60,7 @@ public class FXMLRegisterUserController {
     public void registerUserBtnSaveAction() {
         UserController userCtrl = UserController.getUserController();
         User user = new User(registerUserLoginName.getText(), registerUserPassword.getText(),
-                registerUserName.getText(), registerUserCPF.getText(), CoinController.getCoinController().createWallet());
+                registerUserName.getText(), registerUserCPF.getText(), new HashMap<>(CoinController.getCoinController().createWallet()));
         userCtrl.create(user);
         Login login = new Login();
         goQuitAction();

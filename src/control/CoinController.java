@@ -39,7 +39,7 @@ public class CoinController extends Controller implements ICrud {
     public void update(Object coin) {
         if (coin != null) {
             Coin cn = (Coin) coin;
-            if (CoinDao.getCoinDao().get(cn.getExtId()) != null) {
+            if (CoinDao.getCoinDao().get(cn.getName()) != null) {
                 if (read().isEmpty()) {
                     return;
                 } else {
@@ -101,29 +101,30 @@ public class CoinController extends Controller implements ICrud {
         Map<String, Double> wallet = new HashMap<>();
 
         for (int i = 0; i < read().size(); i++) {
-            wallet.put(read().get(i).getExtId(), read().get(i).getPrice() * 0);
+            wallet.put(read().get(i).getName(), read().get(i).getPrice() * 0);
         }
 
         return wallet;
     }
 
     public void depositReal(double value) {
-        UserController.getUserController().getSessionUser().getWallet().replace("1", value);
+        System.out.println(UserController.getUserController().getSessionUser());
+        UserController.getUserController().getSessionUser().getWallet().replace("Real", value);
         Instant timeNow = Instant.now();
         String history = UserController.getUserController().getSessionUser().getName() + " - Depósito: R$" + value + " - Data: " + timeNow.toString();
         UserController.getUserController().getSessionUser().getHistory().add(history);
     }
 
     public void exchange(double value, Coin coinOut, Coin coinIn) {
-        if (value > UserController.getUserController().getSessionUser().getWallet().get(coinOut.getExtId())) {
-            System.out.println("Falta dinheiro");
+        if (value > UserController.getUserController().getSessionUser().getWallet().get(coinOut.getName())) {
+            System.out.println("Falta dinheiro " + coinOut.getName() +" "+ coinIn.getName());
         } else {
-            double walletCoinOut = UserController.getUserController().getSessionUser().getWallet().get(coinOut.getExtId()) - value;
-            double walletCoinIn = UserController.getUserController().getSessionUser().getWallet().get(coinIn.getExtId());
+            double walletCoinOut = UserController.getUserController().getSessionUser().getWallet().get(coinOut.getName()) - value;
+            double walletCoinIn = UserController.getUserController().getSessionUser().getWallet().get(coinIn.getName());
             double coinOutToCoinIn = (value / coinIn.getPrice()) + walletCoinIn;
 
-            UserController.getUserController().getSessionUser().getWallet().replace(coinOut.getExtId(), walletCoinOut);
-            UserController.getUserController().getSessionUser().getWallet().replace(coinIn.getExtId(), coinOutToCoinIn);
+            UserController.getUserController().getSessionUser().getWallet().replace(coinOut.getName(), walletCoinOut);
+            UserController.getUserController().getSessionUser().getWallet().replace(coinIn.getName(), coinOutToCoinIn);
 
             Instant timeNow = Instant.now();
             String history = UserController.getUserController().getSessionUser().getName() + " - Venda De: " + value + " " + coinOut.getName() + " Para: " + coinOutToCoinIn + " " + coinIn.getName() + " - Data: " + timeNow.toString();
@@ -132,8 +133,8 @@ public class CoinController extends Controller implements ICrud {
     }
 
     public void withdrawReal(double value) {
-        if (value <= UserController.getUserController().getSessionUser().getWallet().get("1")) {
-            UserController.getUserController().getSessionUser().getWallet().replace("1", (UserController.getUserController().getSessionUser().getWallet().get("1") - value));
+        if (value <= UserController.getUserController().getSessionUser().getWallet().get("Real")) {
+            UserController.getUserController().getSessionUser().getWallet().replace("Real", (UserController.getUserController().getSessionUser().getWallet().get("Real") - value));
             Instant timeNow = Instant.now();
             String history = UserController.getUserController().getSessionUser().getName() + " - Retirada: R$" + value + " - Data: " + timeNow.toString();
             UserController.getUserController().getSessionUser().getHistory().add(history);
@@ -156,8 +157,8 @@ public class CoinController extends Controller implements ICrud {
     // Continue from here warning!
 
     public double verifyCoinQuantity(String extendedId) {
-        if (UserController.getSessionUser() != null && extendedId != null || extendedId != "" || extendedId != "1") {
-            return (UserController.getSessionUser().getWallet().get(extendedId) / CoinController.getCoinController().searchCoin("1").getPrice());
+        if (UserController.getSessionUser() != null && extendedId != null || extendedId != "" || extendedId != "Real") {
+            return (UserController.getSessionUser().getWallet().get(extendedId) / CoinController.getCoinController().searchCoin("Real").getPrice());
         }
         return 0.0;
     }

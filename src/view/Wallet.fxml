@@ -27,7 +27,7 @@
                         <MenuItem fx:id="menuQuotation" mnemonicParsing="false" onAction="#goQuotationAction" text="Cotaçao" />
                         <MenuItem fx:id="menuDeposit" mnemonicParsing="false" onAction="#goDepositAction" text="Depositar" />
                         <MenuItem fx:id="menuSell" mnemonicParsing="false" onAction="#goSellAction" text="Vender" />
-                        <MenuItem fx:id="menuBuy" mnemonicParsing="false" onAction="#goBuyAction" text="Comprar"/>
+                        <MenuItem fx:id="menuBuy" mnemonicParsing="false" onAction="#goBuyAction" text="Comprar" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Editar">
@@ -46,10 +46,7 @@
             <children>
                 <TableView fx:id="walletTable" layoutX="21.0" layoutY="76.0" prefHeight="200.0" prefWidth="555.0">
                     <columns>
-                        <TableColumn fx:id="coinColumn" prefWidth="137.0" text="Moeda" />
-                        <TableColumn fx:id="qtdColumn" prefWidth="107.0" text="Quantidade" />
-                        <TableColumn fx:id="priceColumn" prefWidth="113.0" text="Valor em R$" />
-                        <TableColumn fx:id="totalPriceColumn" prefWidth="205.0" text="Valor Total em R$" />
+                        <TableColumn fx:id="coinColumn" prefWidth="554.0" text="Moeda" />
                     </columns>
                 </TableView>
                 <Button fx:id="walletDepositBtn" layoutX="61.0" layoutY="301.0" mnemonicParsing="false" onAction="#walletDepositBtnAction" text="Depositar" />

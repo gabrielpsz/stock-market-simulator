@@ -1,22 +1,24 @@
 package view;
 
 import control.UserController;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import model.Coin;
 import model.User;
 
 import java.net.URL;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class FXMLWalletController implements Initializable {
 
-    @FXML
-    private TableView<User> walletTable;
 
     @FXML
     private Button walletDepositBtn;
@@ -25,16 +27,10 @@ public class FXMLWalletController implements Initializable {
     private MenuItem menuWallet;
 
     @FXML
-    private TableColumn<User, Double> totalPriceColumn;
+    private TableView<String> walletTable;
 
     @FXML
-    private TableColumn<User, Double> qtdColumn;
-
-    @FXML
-    private TableColumn<?, ?> coinColumn;
-
-    @FXML
-    private TableColumn<?, ?> priceColumn;
+    private TableColumn<String, String> coinColumn;
 
     @FXML
     private Button walletBtnSell;
@@ -162,14 +158,17 @@ public class FXMLWalletController implements Initializable {
         }
     }
 
-    public void loadWallet() {
-//        ObservableList<Double> wallet = FXCollections.observableArrayList(UserController.getUserController().listWallet());
-//        System.out.println(UserController.getUserController().listWallet());
+    public ObservableList<String> loadWallet() {
+        ObservableList<String> wallet = FXCollections.observableArrayList(UserController.getUserController().listWallet());
 //        TODO - Implementar carrega tabela
+        return wallet;
+
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        loadWallet();
+        System.out.println(loadWallet());
+        coinColumn.setCellValueFactory(x -> new SimpleObjectProperty<>(loadWallet().toString()));
+        walletTable.setItems(loadWallet());
     }
 }
