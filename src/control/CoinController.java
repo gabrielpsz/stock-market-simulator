@@ -14,6 +14,9 @@ import java.util.Map;
 public class CoinController extends Controller implements ICrud {
 
     private static CoinController coinController;
+    private static double iof = 1.01;
+    private static double corretagem = 0.5;
+
 
     public CoinController() {
         super();
@@ -61,6 +64,22 @@ public class CoinController extends Controller implements ICrud {
             coinController = new CoinController();
         }
         return coinController;
+    }
+
+    public static double getIof() {
+        return iof;
+    }
+
+    public static void setIof(double iof) {
+        CoinController.iof = iof;
+    }
+
+    public static double getCorretagem() {
+        return corretagem;
+    }
+
+    public static void setCorretagem(double corretagem) {
+        CoinController.corretagem = corretagem;
     }
 
     public static void setCoinController(CoinController coinController) {
@@ -118,7 +137,7 @@ public class CoinController extends Controller implements ICrud {
         if (value > UserController.getUserController().getSessionUser().getWallet().get(coinOut.getExtId())) {
             System.out.println("Falta dinheiro");
         } else {
-            double walletCoinOut = UserController.getUserController().getSessionUser().getWallet().get(coinOut.getExtId()) - value;
+            double walletCoinOut = UserController.getUserController().getSessionUser().getWallet().get(coinOut.getExtId()) - value + ((iof * UserController.getUserController().getSessionUser().getWallet().get(coinOut.getExtId()) / 100)) + ((corretagem * UserController.getUserController().getSessionUser().getWallet().get(coinOut.getExtId()) / 100));
             double walletCoinIn = UserController.getUserController().getSessionUser().getWallet().get(coinIn.getExtId());
             double coinOutToCoinIn = (value / coinIn.getPrice()) + walletCoinIn;
 
