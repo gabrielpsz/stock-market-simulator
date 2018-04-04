@@ -1,10 +1,8 @@
 package control;
 
 import dao.CoinDao;
-import dao.UserDao;
 import interfaces.ICrud;
 import model.Coin;
-import model.User;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -14,6 +12,9 @@ import java.util.Map;
 public class CoinController extends Controller implements ICrud {
 
     private static CoinController coinController;
+    private static double iof = 1.01;
+    private static double corretagem = 0.5;
+
 
     public CoinController() {
         super();
@@ -61,6 +62,22 @@ public class CoinController extends Controller implements ICrud {
             coinController = new CoinController();
         }
         return coinController;
+    }
+
+    public static double getIof() {
+        return iof;
+    }
+
+    public static void setIof(double iof) {
+        CoinController.iof = iof;
+    }
+
+    public static double getCorretagem() {
+        return corretagem;
+    }
+
+    public static void setCorretagem(double corretagem) {
+        CoinController.corretagem = corretagem;
     }
 
     public static void setCoinController(CoinController coinController) {
@@ -117,7 +134,7 @@ public class CoinController extends Controller implements ICrud {
 
     public void exchange(double value, Coin coinOut, Coin coinIn) {
         if (value > UserController.getUserController().getSessionUser().getWallet().get(coinOut.getName())) {
-            System.out.println("Falta dinheiro " + coinOut.getName() +" "+ coinIn.getName());
+            System.out.println("Falta dinheiro " + coinOut.getName() + " " + coinIn.getName());
         } else {
             double walletCoinOut = UserController.getUserController().getSessionUser().getWallet().get(coinOut.getName()) - value;
             double walletCoinIn = UserController.getUserController().getSessionUser().getWallet().get(coinIn.getName());
