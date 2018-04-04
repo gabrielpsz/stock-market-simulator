@@ -155,4 +155,11 @@ public class CoinController extends Controller implements ICrud {
 
     // Continue from here warning!
 
+    public double verifyCoinQuantity(String extendedId) {
+        if (UserController.getSessionUser() != null && extendedId != null || extendedId != "" || extendedId != "1") {
+            return (UserController.getSessionUser().getWallet().get(extendedId) / CoinController.getCoinController().searchCoin("1").getPrice());
+        }
+        return 0.0;
+    }
+
 }
