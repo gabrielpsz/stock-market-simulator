@@ -1,5 +1,7 @@
 package view;
 
+import control.CoinController;
+import control.UserController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -104,12 +106,11 @@ public class FXMLSellCoinController {
     }
 
     @FXML
-    void sellBtnAction(ActionEvent event) {
-
+    public void sellBtnAction() {
     }
 
     @FXML
-    void sellBtnCancelAction(ActionEvent event) {
+    public void sellBtnCancelAction() {
 
     }
 

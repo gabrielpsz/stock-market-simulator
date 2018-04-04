@@ -99,7 +99,6 @@ public class CoinController extends Controller implements ICrud {
             Coin cn = (Coin) coin;
             System.out.println(cn.getName() + " " + cn.getPrice());
             CoinDao.getCoinDao().put(cn);
-//            TODO - Arrumar essa porra
 //            if (read().isEmpty()) {
 //                cn.setName("Real");
 //            } else {
@@ -160,12 +159,12 @@ public class CoinController extends Controller implements ICrud {
         }
     }
 
-    public Coin searchCoin(String extendedId) {
-        return CoinDao.getCoinDao().get(extendedId);
+    public Coin searchCoin(String name) {
+        return CoinDao.getCoinDao().get(name);
     }
 
-    public boolean verifyCoinExistance(String extendedId) {
-        if (CoinDao.getCoinDao().get(extendedId) != null) {
+    public boolean verifyCoinExistance(String name) {
+        if (CoinDao.getCoinDao().get(name) != null) {
             return true;
         }
         return false;

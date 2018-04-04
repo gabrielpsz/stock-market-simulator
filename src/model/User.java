@@ -42,10 +42,6 @@ public class User implements Serializable {
         this.wallet = wallet;
     }
 
-    public Collection<Double> getWalletList() {
-        return wallet.values();
-    }
-
     public int getUserId() {
         return userId;
     }
