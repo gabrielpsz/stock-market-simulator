@@ -1,10 +1,8 @@
 package control;
 
 import dao.CoinDao;
-import dao.UserDao;
 import interfaces.ICrud;
 import model.Coin;
-import model.User;
 
 import java.time.Instant;
 import java.util.ArrayList;
