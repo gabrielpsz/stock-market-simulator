@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 public class Coin implements Serializable {
 
-    private String extId;
     private String name;
     private double price;
 
@@ -17,14 +16,6 @@ public class Coin implements Serializable {
     @Override
     public String toString() {
         return getName();
-    }
-
-    public String getExtId() {
-        return extId;
-    }
-
-    public void setExtId(String extId) {
-        this.extId = extId;
     }
 
     public String getName() {

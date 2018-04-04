@@ -26,12 +26,12 @@ public class CoinController extends Controller implements ICrud {
     }
 
     @Override
-    public void delete(String extendedId) {
-        if (extendedId != null) {
+    public void delete(String name) {
+        if (name != null) {
             if (read().isEmpty()) {
                 return;
             } else {
-                CoinDao.getCoinDao().remove(extendedId);
+                CoinDao.getCoinDao().remove(name);
             }
         }
     }
@@ -44,8 +44,7 @@ public class CoinController extends Controller implements ICrud {
                 if (read().isEmpty()) {
                     return;
                 } else {
-                    CoinDao.getCoinDao().get(cn.getExtId()).setName(cn.getName());
-                    CoinDao.getCoinDao().get(cn.getExtId()).setPrice(cn.getPrice());
+                    CoinDao.getCoinDao().get(cn.getName()).setPrice(cn.getPrice());
                     CoinDao.getCoinDao().persist();
                 }
             }
@@ -89,29 +88,29 @@ public class CoinController extends Controller implements ICrud {
         create(coin);
     }
 
-    public void updateData(String extendedId, String name, double price) {
+    public void updateData(String name, double price) {
         Coin coin = new Coin(name, price);
-        coin.setExtId(extendedId);
         update(coin);
     }
 
-    @Override
-    public void create(Object coin) {
-        if (coin != null) {
-            Coin cn = (Coin) coin;
-            if (read().isEmpty()) {
-                cn.setExtId("1");
-                CoinDao.getCoinDao().put(cn);
-            } else {
-                String lastId = read().get(read().size() - 1).getExtId();
-                int lastIntId = Integer.parseInt(lastId);
-                int newIntId = lastIntId + 1;
-                String newId = Integer.toString(newIntId);
-                cn.setExtId(newId);
-                CoinDao.getCoinDao().put(cn);
-            }
-        }
-    }
+//    @Override
+//    public void create(Object coin) {
+//        if (coin != null) {
+//            Coin cn = (Coin) coin;
+////            TODO - Arrumar essa porra
+//            if (read().isEmpty()) {
+//                cn.setExtId("1");
+//                CoinDao.getCoinDao().put(cn);
+//            } else {
+//                String lastId = read().get(read().size() - 1).getExtId();
+//                int lastIntId = Integer.parseInt(lastId);
+//                int newIntId = lastIntId + 1;
+//                String newId = Integer.toString(newIntId);
+//                cn.setExtId(newId);
+//                CoinDao.getCoinDao().put(cn);
+//            }
+//        }
+//    }
 
     public Map<String, Double> createWallet() {
 
@@ -173,9 +172,9 @@ public class CoinController extends Controller implements ICrud {
 
     // Continue from here warning!
 
-    public double verifyCoinQuantity(String extendedId) {
-        if (UserController.getSessionUser() != null && extendedId != null || extendedId != "" || extendedId != "Real") {
-            return (UserController.getSessionUser().getWallet().get(extendedId) / CoinController.getCoinController().searchCoin("Real").getPrice());
+    public double verifyCoinQuantity(String name) {
+        if (UserController.getSessionUser() != null && name != null || name != "" || name != "Real") {
+            return (UserController.getSessionUser().getWallet().get(name) / CoinController.getCoinController().searchCoin("Real").getPrice());
         }
         return 0.0;
     }
