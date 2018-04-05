@@ -5,6 +5,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -165,10 +166,32 @@ public class FXMLWalletController implements Initializable {
         }
     }
 
+    public ObservableList<String> loadCoinName() {
+        ObservableList<String> coinName = FXCollections.observableArrayList(UserController.getUserController().listWalletName());
+        return coinName;
+    }
+
+    public ObservableList<Double> loadCoinValue() {
+        ObservableList<Double> coinName = FXCollections.observableArrayList(UserController.getUserController().listaWalletValue());
+        return coinName;
+    }
+
+    public ObservableList<String> loadWallet() {
+        ObservableList<String> wallet = FXCollections.observableArrayList(UserController.getUserController().loadWallet());
+        return wallet;
+    }
+
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-//        System.out.println(loadWallet());
-//
-//        walletTable.setItems(loadWallet());
+        coinColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<String, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<String, String> p) {
+
+                return null;
+            }
+        });
+        walletTable.setItems(loadWallet());
+        System.out.println(walletTable);
     }
 }
