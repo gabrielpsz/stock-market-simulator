@@ -126,29 +126,17 @@ public class UserController extends Controller implements ICrud {
         }
         return false;
     }
-    public List<String> loadCoinName(){
-        List<String> coinNameList = getSessionUser().getWallet().keySet().stream().collect(Collectors.toList());
-        return coinNameList;
-    }
-    public List<Double> loadCoinValue(){
-        List<Double> coinValuesList = getSessionUser().getWallet().values().stream().collect(Collectors.toList());
-        return coinValuesList;
-    }
 
-    public List<String> listWallet() {
-        if (getSessionUser() != null) {
-            List<String> walletList = new ArrayList<>();
+    public List<String> listWalletName() {
             List<String> coinNameList = getSessionUser().getWallet().keySet().stream().collect(Collectors.toList());
-            List<Double> coinValuesList = getSessionUser().getWallet().values().stream().collect(Collectors.toList());
 
-            for (int i = 0; i < 5; i++) {
-                String coin = "Name: "+coinNameList.get(i)+ "-R$" + coinValuesList.get(i).toString();
-                System.out.println(coin);
-                walletList.add(coin);
-            }
-            return walletList;
-        }
-        return null;
+            return coinNameList;
+    }
+
+    public List<Double> listaWalletValue() {
+        List<Double> coinValuesList = getSessionUser().getWallet().values().stream().collect(Collectors.toList());
+
+        return coinValuesList;
     }
 
 }

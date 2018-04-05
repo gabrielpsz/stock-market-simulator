@@ -2,6 +2,8 @@ package view;
 
 import control.UserController;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -10,11 +12,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import model.Coin;
 import model.User;
 
 import java.net.URL;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 public class FXMLWalletController implements Initializable {
@@ -33,7 +37,7 @@ public class FXMLWalletController implements Initializable {
     private TableColumn<String, String> coinColumn;
 
     @FXML
-    private TableColumn<String, String> valueColumn;
+    private TableColumn<String, Double> valueColumn;
 
     @FXML
     private Button walletBtnSell;
@@ -161,17 +165,10 @@ public class FXMLWalletController implements Initializable {
         }
     }
 
-    public ObservableList<String> loadWallet() {
-        ObservableList<String> wallet = FXCollections.observableArrayList(UserController.getUserController().listWallet());
-//        TODO - Implementar carrega tabela
-        return wallet;
-
-    }
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        System.out.println(loadWallet());
-        coinColumn.setCellValueFactory(x -> new SimpleObjectProperty<>(loadWallet().toString()));
-        walletTable.setItems(loadWallet());
+//        System.out.println(loadWallet());
+//
+//        walletTable.setItems(loadWallet());
     }
 }
