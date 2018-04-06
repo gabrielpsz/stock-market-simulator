@@ -60,7 +60,7 @@ public class FXMLRegisterUserController {
     public void registerUserBtnSaveAction() {
         UserController userCtrl = UserController.getUserController();
         User user = new User(registerUserLoginName.getText(), registerUserPassword.getText(),
-                registerUserName.getText(), registerUserCPF.getText(), new HashMap<>(CoinController.getCoinController().createWallet()));
+                registerUserName.getText(), registerUserCPF.getText(), UserController.getUserController().createWallet());
         userCtrl.create(user);
         Login login = new Login();
         goQuitAction();

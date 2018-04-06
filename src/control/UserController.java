@@ -2,13 +2,13 @@ package control;
 
 import dao.UserDao;
 import interfaces.ICrud;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import model.User;
+import model.WalletCoin;
+import view.Wallet;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.*;
 
 public class UserController extends Controller implements ICrud {
 
@@ -51,6 +51,10 @@ public class UserController extends Controller implements ICrud {
         }
     }
 
+    public void updatePersist(){
+        UserDao.getUserDao().persist();
+    }
+
     @Override
     public void update(Object user) {
         if (user != null) {
@@ -72,16 +76,16 @@ public class UserController extends Controller implements ICrud {
     public ArrayList<User> read() {
         return new ArrayList<User>(UserDao.getUserDao().getList());
     }
-
-    public void receiveData(String login, String password, String name, String cpf) {
-        User user = new User(login, password, name, cpf, CoinController.getCoinController().createWallet());
-        create(user);
-    }
-
-    public void updateData(String login, String password, String name, String cpf) {
-        User user = new User(login, password, name, cpf, CoinController.getCoinController().createWallet());
-        update(user);
-    }
+//
+//    public void receiveData(String login, String password, String name, String cpf) {
+//        User user = new User(login, password, name, cpf, CoinController.getCoinController().createWallet());
+//        create(user);
+//    }
+//
+//    public void updateData(String login, String password, String name, String cpf) {
+//        User user = new User(login, password, name, cpf, CoinController.getCoinController().createWallet());
+//        update(user);
+//    }
 
     public static UserController getUserController() {
         if (userController == null) {
@@ -127,27 +131,36 @@ public class UserController extends Controller implements ICrud {
         return false;
     }
 
-    public List<String> loadWallet(){
-        List<String> walletList = new ArrayList<>();
-        List<String> coinNameList = getSessionUser().getWallet().keySet().stream().collect(Collectors.toList());
-        List<Double> coinValuesList = getSessionUser().getWallet().values().stream().collect(Collectors.toList());
-
-        for (int i = 0; i < 5; i++) {
-            String coin = coinNameList.get(i) + coinValuesList.get(i).toString();
-            walletList.add(coin);
+    public WalletCoin getCoinWallet(String nome) {
+        for (int i = 0; i < sessionUser.getWallet().size(); i++) {
+            if (sessionUser.getWallet().get(i).getNameCoin().equals(nome)) {
+                return sessionUser.getWallet().get(i);
+            }
         }
-        return walletList;
+        return null;
     }
 
-    public List<String> listWalletName() {
-            List<String> coinNameList = getSessionUser().getWallet().keySet().stream().collect(Collectors.toList());
-            return coinNameList;
+    public List<WalletCoin> listaMoedasDoDOido(){
+        return sessionUser.getWallet();
     }
 
-    public List<Double> listaWalletValue() {
-        List<Double> coinValuesList = getSessionUser().getWallet().values().stream().collect(Collectors.toList());
-        return coinValuesList;
+    public List<WalletCoin> createWallet() {
+        List<WalletCoin> walletCoin = new ArrayList<>();
+        WalletCoin ww;
+        for (int i = 0; i < CoinController.getCoinController().read().size(); i++) {
+            ww = new WalletCoin(CoinController.getCoinController().read().get(i).getName(), 0);
+            walletCoin.add(ww);
+        }
+        return walletCoin;
     }
-
-
+    public ObservableList<WalletCoin> kRegaWallet() {
+        List<WalletCoin> walletCoin = new ArrayList<>();
+        WalletCoin w;
+        for (int i = 0; i < CoinController.getCoinController().read().size(); i++) {
+            w = new WalletCoin(CoinController.getCoinController().read().get(i).getName(), 0);
+            walletCoin.add(w);
+        }
+        ObservableList<WalletCoin> ww = FXCollections.observableList(walletCoin);
+        return ww;
+    }
 }

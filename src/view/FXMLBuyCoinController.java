@@ -118,6 +118,13 @@ public class FXMLBuyCoinController implements Initializable {
     @FXML
     public void buyBtnAction() {
         CoinController.getCoinController().exchange(Double.parseDouble(buyQuantText.getText()), buyCbBoxCoinOut.getValue(), buyCbBoxCoin.getValue());
+        Quotation quotation = new Quotation();
+        goQuitAction();
+        try {
+            quotation.start(new Stage());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML

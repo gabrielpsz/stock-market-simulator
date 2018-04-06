@@ -1,12 +1,14 @@
 package view;
 
 import control.UserController;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -16,6 +18,7 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import model.Coin;
 import model.User;
+import model.WalletCoin;
 
 import java.net.URL;
 import java.util.HashMap;
@@ -32,13 +35,13 @@ public class FXMLWalletController implements Initializable {
     private MenuItem menuWallet;
 
     @FXML
-    private TableView<String> walletTable;
+    private TableView<WalletCoin> walletTable;
 
     @FXML
-    private TableColumn<String, String> coinColumn;
+    private TableColumn<WalletCoin, String> coinColumn;
 
     @FXML
-    private TableColumn<String, Double> valueColumn;
+    private TableColumn<WalletCoin, Double> valueColumn;
 
     @FXML
     private Button walletBtnSell;
@@ -166,32 +169,10 @@ public class FXMLWalletController implements Initializable {
         }
     }
 
-    public ObservableList<String> loadCoinName() {
-        ObservableList<String> coinName = FXCollections.observableArrayList(UserController.getUserController().listWalletName());
-        return coinName;
-    }
-
-    public ObservableList<Double> loadCoinValue() {
-        ObservableList<Double> coinName = FXCollections.observableArrayList(UserController.getUserController().listaWalletValue());
-        return coinName;
-    }
-
-    public ObservableList<String> loadWallet() {
-        ObservableList<String> wallet = FXCollections.observableArrayList(UserController.getUserController().loadWallet());
-        return wallet;
-    }
-
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        coinColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<String, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<String, String> p) {
-
-                return null;
-            }
-        });
-        walletTable.setItems(loadWallet());
-        System.out.println(walletTable);
+        coinColumn.setCellValueFactory(new PropertyValueFactory<>("nameCoin"));
+        valueColumn.setCellValueFactory(new PropertyValueFactory<>("qtd"));
+        walletTable.setItems(FXCollections.observableList(UserController.getSessionUser().getWallet()));
     }
 }

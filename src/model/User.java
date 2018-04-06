@@ -10,16 +10,18 @@ public class User implements Serializable {
     private String password;
     private String name;
     private String cpf;
-    private Map<String, Double> wallet;
+    //    private Map<String, Double> walletCoin;
+    private List<WalletCoin> wallet;
     private List<String> history;
 
-    public User(String login, String password, String name, String cpf, Map<String, Double> wallet) {
+    public User(String login, String password, String name, String cpf, List<WalletCoin> wallet) {
         super();
         this.login = login;
         this.password = password;
         this.name = name;
         this.cpf = cpf;
-        this.wallet = new HashMap<>(wallet);
+        this.wallet = wallet;
+//        this.walletCoin = new HashMap<>(walletCoin);
         this.history = new ArrayList<>();
     }
 
@@ -34,11 +36,20 @@ public class User implements Serializable {
                 '}';
     }
 
-    public Map<String, Double> getWallet() {
+//    public Map<String, Double> getWallet() {
+//        return walletCoin;
+//    }
+//
+//    public void setWallet(Map<String, Double> walletCoin) {
+//        this.walletCoin = walletCoin;
+//    }
+
+
+    public List<WalletCoin> getWallet() {
         return wallet;
     }
 
-    public void setWallet(Map<String, Double> wallet) {
+    public void setWallet(List<WalletCoin> wallet) {
         this.wallet = wallet;
     }
 
@@ -89,4 +100,5 @@ public class User implements Serializable {
     public void setHistory(List<String> history) {
         this.history = history;
     }
+
 }

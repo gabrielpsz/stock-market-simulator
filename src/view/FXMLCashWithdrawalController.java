@@ -24,9 +24,6 @@ public class FXMLCashWithdrawalController implements Initializable {
     private MenuBar menuBar;
 
     @FXML
-    private ComboBox<Coin> cashCbBoxCoin;
-
-    @FXML
     private Button cashBtnWithdrawal;
 
     @FXML
@@ -123,20 +120,22 @@ public class FXMLCashWithdrawalController implements Initializable {
         }
     }
 
+
     @FXML
-    void cashBtnWithdrawalAction() {
-//        TODO - Implementar saque
+    public void cashBtnWithdrawalAction() {
+        System.out.println(cashQuantText.getText());
+        CoinController.getCoinController().withdrawReal(Double.parseDouble(cashQuantText.getText()));
+        Wallet wallet = new Wallet();
+        goQuitAction();
+        try {
+            wallet.start(new Stage());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-
-    }
-
-    public ObservableList<Coin> loadCheckBox() {
-        ObservableList<Coin> coins = FXCollections.observableArrayList(CoinController.getCoinController().read());
-        return coins;
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        cashCbBoxCoin.setItems(loadCheckBox());
     }
 }
