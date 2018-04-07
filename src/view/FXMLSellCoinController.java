@@ -1,18 +1,22 @@
 package view;
 
 import control.CoinController;
-import control.UserController;
-import javafx.event.ActionEvent;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import model.Coin;
 
-public class FXMLSellCoinController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class FXMLSellCoinController implements Initializable {
 
     @FXML
     private MenuBar menuBar;
@@ -30,7 +34,7 @@ public class FXMLSellCoinController {
     private MenuItem menuDeposit;
 
     @FXML
-    private ComboBox<?> sellCbCoin;
+    private ComboBox<Coin> sellCbCoin;
 
     @FXML
     private MenuItem menuWallet;
@@ -41,8 +45,6 @@ public class FXMLSellCoinController {
     @FXML
     private TextField sellQtdText;
 
-    @FXML
-    private Label sellValueLabel;
 
     @FXML
     public void goQuitAction() {
@@ -105,13 +107,30 @@ public class FXMLSellCoinController {
 
     }
 
+    public ObservableList<Coin> loadCheckBox() {
+        ObservableList<Coin> coins = FXCollections.observableArrayList(CoinController.getCoinController().read());
+        return coins;
+    }
+
     @FXML
     public void sellBtnAction() {
+        CoinController.getCoinController().exchange(Double.parseDouble(sellQtdText.getText()), sellCbCoin.getValue(), CoinController.getCoinController().searchCoin("Real"));
+
     }
 
     @FXML
     public void sellBtnCancelAction() {
-
+        Wallet wallet = new Wallet();
+        goQuitAction();
+        try {
+            wallet.start(new Stage());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        sellCbCoin.setItems(loadCheckBox());
+    }
 }

@@ -27,7 +27,7 @@
                         <MenuItem fx:id="menuQuotation" mnemonicParsing="false" onAction="#goQuotationAction" text="Cotaçao" />
                         <MenuItem fx:id="menuDeposit" mnemonicParsing="false" onAction="#goDepositAction" text="Depositar" />
                         <MenuItem fx:id="menuSell" mnemonicParsing="false" onAction="#goSellAction" text="Vender" />
-                        <MenuItem fx:id="menuBuy" mnemonicParsing="false" onAction="#goBuyAction" text="Comprar"/>
+                        <MenuItem fx:id="menuBuy" mnemonicParsing="false" onAction="#goBuyAction" text="Comprar" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Editar">
@@ -47,7 +47,7 @@
                 <TableView fx:id="tableQuotation" layoutX="34.0" layoutY="30.0" prefHeight="273.0" prefWidth="511.0">
                     <columns>
                         <TableColumn fx:id="columnCoin" prefWidth="255.0" text="Moeda" />
-                        <TableColumn fx:id="columnPrice" prefWidth="255.0" text="Valor" />
+                        <TableColumn fx:id="columnPrice" prefWidth="255.0" text="Valor em R$" />
                     </columns>
                 </TableView>
                 <Button fx:id="quoteBtnBuy" layoutX="470.0" layoutY="325.0" mnemonicParsing="false" onAction="#quoteBtnBuyAction" text="Comprar" />
