@@ -16,6 +16,9 @@ public class FXMLLoginController implements Initializable {
     private static Stage stage;
 
     @FXML
+    private MenuItem rateConfig;
+
+    @FXML
     private Button loginBtnRegisterUser;
 
     @FXML
@@ -44,6 +47,17 @@ public class FXMLLoginController implements Initializable {
     }
 
     @FXML
+    public void goRateConfigAction() {
+        RatesSettings ratesSettings = new RatesSettings();
+        goQuitAction();
+        try {
+            ratesSettings.start(new Stage());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
     public void loginBtnRegisterUserAction() {
         RegisterUser registerUser = new RegisterUser();
         goQuitAction();
@@ -64,7 +78,7 @@ public class FXMLLoginController implements Initializable {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }else{
+        } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erro");
             alert.setHeaderText("Login Inválido");
