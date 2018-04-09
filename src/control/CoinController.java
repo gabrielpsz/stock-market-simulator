@@ -141,8 +141,13 @@ public class CoinController extends Controller implements ICrud {
         } else {
             double walletCoinOut = UserController.getUserController().getCoinWallet(coinOut.getName()).getQtd() - value;
             double walletCoinIn = UserController.getUserController().getCoinWallet(coinIn.getName()).getQtd();
-            double coinOutToCoinIn = (value / coinIn.getPrice()) + walletCoinIn;
-
+            double coinOutToCoinIn;
+            if (coinIn.getPrice() < coinOut.getPrice()) {
+                coinOutToCoinIn = ((value * coinOut.getPrice())/coinIn.getPrice()) + walletCoinIn;
+            }
+            else {
+                coinOutToCoinIn = (value / coinIn.getPrice()) + walletCoinIn;
+            }
             UserController.getUserController().getCoinWallet(coinOut.getName()).setQtd(walletCoinOut);
             UserController.getUserController().getCoinWallet(coinIn.getName()).setQtd(coinOutToCoinIn);
 
