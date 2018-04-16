@@ -6,15 +6,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class BuyCoin extends Application {
+public class SellAction extends Application {
 
     private static Stage stage;
 
     @Override
     public void start(Stage stage) throws Exception {
 
-        Parent buyCoin = FXMLLoader.load(getClass().getResource("BuyCoin.fxml"));
-        Scene scene = new Scene(buyCoin);
+        Parent sellAction = FXMLLoader.load(getClass().getResource("SellAction.fxml"));
+        Scene scene = new Scene(sellAction);
         stage.setScene(scene);
         stage.show();
         setStage(stage);
@@ -25,7 +25,7 @@ public class BuyCoin extends Application {
     }
 
     public static void setStage(Stage stage) {
-        BuyCoin.stage = stage;
+        SellAction.stage = stage;
     }
 
 

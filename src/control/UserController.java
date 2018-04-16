@@ -5,7 +5,7 @@ import interfaces.ICrud;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.User;
-import model.WalletCoin;
+import model.WalletAction;
 import view.Wallet;
 
 import java.util.*;
@@ -78,12 +78,12 @@ public class UserController extends Controller implements ICrud {
     }
 //
 //    public void receiveData(String login, String password, String name, String cpf) {
-//        User user = new User(login, password, name, cpf, CoinController.getCoinController().createWallet());
+//        User user = new User(login, password, name, cpf, ActionController.getActionController().createWallet());
 //        create(user);
 //    }
 //
 //    public void updateData(String login, String password, String name, String cpf) {
-//        User user = new User(login, password, name, cpf, CoinController.getCoinController().createWallet());
+//        User user = new User(login, password, name, cpf, ActionController.getActionController().createWallet());
 //        update(user);
 //    }
 
@@ -94,7 +94,7 @@ public class UserController extends Controller implements ICrud {
         return userController;
     }
 
-    public static void setCoinController(UserController userController) {
+    public static void setActionController(UserController userController) {
         UserController.userController = userController;
     }
 
@@ -131,36 +131,36 @@ public class UserController extends Controller implements ICrud {
         return false;
     }
 
-    public WalletCoin getCoinWallet(String nome) {
+    public WalletAction getActionWallet(String nome) {
         for (int i = 0; i < sessionUser.getWallet().size(); i++) {
-            if (sessionUser.getWallet().get(i).getNameCoin().equals(nome)) {
+            if (sessionUser.getWallet().get(i).getNameAction().equals(nome)) {
                 return sessionUser.getWallet().get(i);
             }
         }
         return null;
     }
 
-    public List<WalletCoin> listaMoedasDoDOido(){
+    public List<WalletAction> listaMoedasDoDOido(){
         return sessionUser.getWallet();
     }
 
-    public List<WalletCoin> createWallet() {
-        List<WalletCoin> walletCoin = new ArrayList<>();
-        WalletCoin ww;
-        for (int i = 0; i < CoinController.getCoinController().read().size(); i++) {
-            ww = new WalletCoin(CoinController.getCoinController().read().get(i).getName(), 0);
-            walletCoin.add(ww);
+    public List<WalletAction> createWallet() {
+        List<WalletAction> walletAction = new ArrayList<>();
+        WalletAction ww;
+        for (int i = 0; i < ActionController.getActionController().read().size(); i++) {
+            ww = new WalletAction(ActionController.getActionController().read().get(i).getName(), 0);
+            walletAction.add(ww);
         }
-        return walletCoin;
+        return walletAction;
     }
-    public ObservableList<WalletCoin> kRegaWallet() {
-        List<WalletCoin> walletCoin = new ArrayList<>();
-        WalletCoin w;
-        for (int i = 0; i < CoinController.getCoinController().read().size(); i++) {
-            w = new WalletCoin(CoinController.getCoinController().read().get(i).getName(), 0);
-            walletCoin.add(w);
+    public ObservableList<WalletAction> kRegaWallet() {
+        List<WalletAction> walletAction = new ArrayList<>();
+        WalletAction w;
+        for (int i = 0; i < ActionController.getActionController().read().size(); i++) {
+            w = new WalletAction(ActionController.getActionController().read().get(i).getName(), 0);
+            walletAction.add(w);
         }
-        ObservableList<WalletCoin> ww = FXCollections.observableList(walletCoin);
+        ObservableList<WalletAction> ww = FXCollections.observableList(walletAction);
         return ww;
     }
 }

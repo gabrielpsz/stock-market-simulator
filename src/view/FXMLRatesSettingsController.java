@@ -1,6 +1,6 @@
 package view;
 
-import control.CoinController;
+import control.ActionController;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -84,10 +84,10 @@ public class FXMLRatesSettingsController implements Initializable {
 
     @FXML
     public void goBuyAction() {
-        BuyCoin buyCoin = new BuyCoin();
+        BuyAction buyAction = new BuyAction();
         goQuitAction();
         try {
-            buyCoin.start(new Stage());
+            buyAction.start(new Stage());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -95,10 +95,10 @@ public class FXMLRatesSettingsController implements Initializable {
 
     @FXML
     public void goSellAction() {
-        SellCoin sellCoin = new SellCoin();
+        SellAction sellAction = new SellAction();
         goQuitAction();
         try {
-            sellCoin.start(new Stage());
+            sellAction.start(new Stage());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -107,7 +107,7 @@ public class FXMLRatesSettingsController implements Initializable {
 
     @FXML
     public void ratesBtnSaveAction() {
-        CoinController.setCorretagem(Double.parseDouble(rateBrokerageTxt.getText()));
+        ActionController.setCorretagem(Double.parseDouble(rateBrokerageTxt.getText()));
         Login login = new Login();
         goQuitAction();
         try {
@@ -119,7 +119,7 @@ public class FXMLRatesSettingsController implements Initializable {
 
     @FXML
     public void ratesBtnCancelAction() {
-        CoinController.setCorretagem(Double.parseDouble(rateIofTxt.getText()));
+        ActionController.setCorretagem(Double.parseDouble(rateIofTxt.getText()));
         Login login = new Login();
         goQuitAction();
         try {

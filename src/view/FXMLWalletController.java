@@ -16,9 +16,9 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import model.Coin;
+import model.Action;
 import model.User;
-import model.WalletCoin;
+import model.WalletAction;
 
 import java.net.URL;
 import java.util.HashMap;
@@ -35,13 +35,13 @@ public class FXMLWalletController implements Initializable {
     private MenuItem menuWallet;
 
     @FXML
-    private TableView<WalletCoin> walletTable;
+    private TableView<WalletAction> walletTable;
 
     @FXML
-    private TableColumn<WalletCoin, String> coinColumn;
+    private TableColumn<WalletAction, String> actionColumn;
 
     @FXML
-    private TableColumn<WalletCoin, Double> valueColumn;
+    private TableColumn<WalletAction, Double> valueColumn;
 
     @FXML
     private Button walletBtnSell;
@@ -104,10 +104,10 @@ public class FXMLWalletController implements Initializable {
 
     @FXML
     public void goBuyAction() {
-        BuyCoin buyCoin = new BuyCoin();
+        BuyAction buyAction = new BuyAction();
         goQuitAction();
         try {
-            buyCoin.start(new Stage());
+            buyAction.start(new Stage());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -115,10 +115,10 @@ public class FXMLWalletController implements Initializable {
 
     @FXML
     public void goSellAction() {
-        SellCoin sellCoin = new SellCoin();
+        SellAction sellAction = new SellAction();
         goQuitAction();
         try {
-            sellCoin.start(new Stage());
+            sellAction.start(new Stage());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -149,10 +149,10 @@ public class FXMLWalletController implements Initializable {
 
     @FXML
     void walletBtnSellAction(ActionEvent event) {
-        SellCoin sellCoin = new SellCoin();
+        SellAction sellAction = new SellAction();
         goQuitAction();
         try {
-            sellCoin.start(new Stage());
+            sellAction.start(new Stage());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -160,10 +160,10 @@ public class FXMLWalletController implements Initializable {
 
     @FXML
     void walletBtnBuyAction(ActionEvent event) {
-        BuyCoin buyCoin = new BuyCoin();
+        BuyAction buyAction = new BuyAction();
         goQuitAction();
         try {
-            buyCoin.start(new Stage());
+            buyAction.start(new Stage());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -171,7 +171,7 @@ public class FXMLWalletController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        coinColumn.setCellValueFactory(new PropertyValueFactory<>("nameCoin"));
+        actionColumn.setCellValueFactory(new PropertyValueFactory<>("nameAction"));
         valueColumn.setCellValueFactory(new PropertyValueFactory<>("qtd"));
         walletTable.setItems(FXCollections.observableList(UserController.getSessionUser().getWallet()));
     }

@@ -13,8 +13,8 @@ public class RatesSettings extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-        Parent sellCoin = FXMLLoader.load(getClass().getResource("RatesSettings.fxml"));
-        Scene scene = new Scene(sellCoin);
+        Parent sellAction = FXMLLoader.load(getClass().getResource("RatesSettings.fxml"));
+        Scene scene = new Scene(sellAction);
         stage.setScene(scene);
         stage.show();
         setStage(stage);

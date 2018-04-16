@@ -1,36 +1,36 @@
 package dao;
 
-import model.Coin;
+import model.Action;
 
 import java.io.*;
 import java.util.Collection;
 import java.util.HashMap;
 
-public class CoinDao {
+public class ActionDao {
 
-    private static CoinDao coinDao;
-    private HashMap<String, Coin> coinCache;
-    private String filename = "coins.cla";
+    private static ActionDao actionDao;
+    private HashMap<String, Action> actionCache;
+    private String filename = "actions.cla";
 
-    public CoinDao() {
+    public ActionDao() {
 
         super();
-        coinCache = new HashMap<>();
+        actionCache = new HashMap<>();
         load();
 
     }
 
-    public static CoinDao getCoinDao() {
-        if (coinDao == null) {
-            coinDao = new CoinDao();
+    public static ActionDao getActionDao() {
+        if (actionDao == null) {
+            actionDao = new ActionDao();
         }
 
-        return coinDao;
+        return actionDao;
 
     }
 
-    public static void setCoinDao(CoinDao coinDao) {
-        CoinDao.coinDao = coinDao;
+    public static void setActionDao(ActionDao actionDao) {
+        ActionDao.actionDao = actionDao;
     }
 
     private void load() {
@@ -38,7 +38,7 @@ public class CoinDao {
             FileInputStream fin = new FileInputStream(filename);
             ObjectInputStream oi = new ObjectInputStream(fin);
 
-            this.coinCache = (HashMap<String, Coin>) oi.readObject();
+            this.actionCache = (HashMap<String, Action>) oi.readObject();
 
             oi.close();
             fin.close();
@@ -52,9 +52,9 @@ public class CoinDao {
         }
     }
 
-    public void put(Coin Coin) {
-        if (Coin != null) {
-            coinCache.put(Coin.getName(), Coin);
+    public void put(Action Action) {
+        if (Action != null) {
+            actionCache.put(Action.getName(), Action);
             persist();
         }
     }
@@ -64,7 +64,7 @@ public class CoinDao {
             FileOutputStream fout = new FileOutputStream(filename);
 
             ObjectOutputStream oo = new ObjectOutputStream(fout);
-            oo.writeObject(coinCache);
+            oo.writeObject(actionCache);
 
             oo.flush();
             fout.flush();
@@ -78,10 +78,10 @@ public class CoinDao {
         }
     }
 
-    public Coin get(String name) {
+    public Action get(String name) {
 
         if (name != null) {
-            return coinCache.get(name);
+            return actionCache.get(name);
         }
 
         return null;
@@ -89,16 +89,16 @@ public class CoinDao {
     }
 
     public void remove(String name) {
-        coinCache.remove(name);
+        actionCache.remove(name);
         persist();
     }
 
-    public Collection<Coin> getList() {
-        return coinCache.values();
+    public Collection<Action> getList() {
+        return actionCache.values();
     }
 
-    public HashMap<String, Coin> getCoinCache() {
-        return coinCache;
+    public HashMap<String, Action> getActionCache() {
+        return actionCache;
     }
 
 }

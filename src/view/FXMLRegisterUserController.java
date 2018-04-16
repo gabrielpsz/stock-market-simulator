@@ -1,6 +1,6 @@
 package view;
 
-import control.CoinController;
+import control.ActionController;
 import control.UserController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

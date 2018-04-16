@@ -1,6 +1,6 @@
 package view;
 
-import control.CoinController;
+import control.ActionController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,7 +13,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import model.Coin;
+import model.Action;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -88,10 +88,10 @@ public class FXMLCashWithdrawalController implements Initializable {
 
     @FXML
     public void goBuyAction() {
-        BuyCoin buyCoin = new BuyCoin();
+        BuyAction buyAction = new BuyAction();
         goQuitAction();
         try {
-            buyCoin.start(new Stage());
+            buyAction.start(new Stage());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -99,10 +99,10 @@ public class FXMLCashWithdrawalController implements Initializable {
 
     @FXML
     public void goSellAction() {
-        SellCoin sellCoin = new SellCoin();
+        SellAction sellAction = new SellAction();
         goQuitAction();
         try {
-            sellCoin.start(new Stage());
+            sellAction.start(new Stage());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -124,7 +124,7 @@ public class FXMLCashWithdrawalController implements Initializable {
     @FXML
     public void cashBtnWithdrawalAction() {
         System.out.println(cashQuantText.getText());
-        CoinController.getCoinController().withdrawReal(Double.parseDouble(cashQuantText.getText()));
+        ActionController.getActionController().withdrawReal(Double.parseDouble(cashQuantText.getText()));
         Wallet wallet = new Wallet();
         goQuitAction();
         try {

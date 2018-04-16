@@ -1,7 +1,7 @@
 package Job;
 
-import control.CoinController;
-import model.Coin;
+import control.ActionController;
+import model.Action;
 
 import java.util.Random;
 
@@ -9,15 +9,19 @@ public class UpdateValue implements Runnable {
 
     @Override
     public void run() {
-        Coin putin = new Coin("Putin", getDoubleValue());
-        Coin doge = new Coin("Doge", getDoubleValue());
-        Coin marreta = new Coin("Marreta", getDoubleValue());
-        Coin recayd = new Coin("Recayd", getDoubleValue());
-        CoinController.getCoinController().update(putin);
-        CoinController.getCoinController().update(doge);
-        CoinController.getCoinController().update(marreta);
-        CoinController.getCoinController().update(recayd);
+        Action petrobras = new Action("PETR3", getDoubleValue());
+        Action cemig = new Action("CMIG4", getDoubleValue());
+        Action lojasamericanas = new Action("LAME4", getDoubleValue());
+        Action natura = new Action("NATU3", getDoubleValue());
+        ActionController.getActionController().update(petrobras);
+        ActionController.getActionController().update(cemig);
+        ActionController.getActionController().update(lojasamericanas);
+        ActionController.getActionController().update(natura);
         System.out.println("Mudança de valor");
+        System.out.println(petrobras.getName() +" - " +petrobras.getPrice());
+        System.out.println(cemig.getName() +" - " +cemig.getPrice());
+        System.out.println(lojasamericanas.getName() +" - " +lojasamericanas.getPrice());
+        System.out.println(natura.getName() +" - " +natura.getPrice());
     }
 
     public double getDoubleValue() {

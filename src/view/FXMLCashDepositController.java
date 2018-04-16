@@ -1,6 +1,6 @@
 package view;
 
-import control.CoinController;
+import control.ActionController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -75,10 +75,10 @@ public class FXMLCashDepositController {
 
     @FXML
     public void goBuyAction() {
-        BuyCoin buyCoin = new BuyCoin();
+        BuyAction buyAction = new BuyAction();
         goQuitAction();
         try {
-            buyCoin.start(new Stage());
+            buyAction.start(new Stage());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -86,10 +86,10 @@ public class FXMLCashDepositController {
 
     @FXML
     public void goSellAction() {
-        SellCoin sellCoin = new SellCoin();
+        SellAction sellAction = new SellAction();
         goQuitAction();
         try {
-            sellCoin.start(new Stage());
+            sellAction.start(new Stage());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -110,7 +110,7 @@ public class FXMLCashDepositController {
 
     @FXML
     void depositBtnAction() {
-        CoinController.getCoinController().depositReal(Double.parseDouble(depositQuantText.getText()));
+        ActionController.getActionController().depositReal(Double.parseDouble(depositQuantText.getText()));
     }
 
 }

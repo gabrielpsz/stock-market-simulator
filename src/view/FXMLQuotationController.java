@@ -1,6 +1,6 @@
 package view;
 
-import control.CoinController;
+import control.ActionController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -8,7 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import model.Coin;
+import model.Action;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -19,13 +19,13 @@ public class FXMLQuotationController implements Initializable {
     private MenuBar menuBar;
 
     @FXML
-    private TableView<Coin> tableQuotation;
+    private TableView<Action> tableQuotation;
 
     @FXML
-    private TableColumn<Coin, Double> columnPrice;
+    private TableColumn<Action, Double> columnPrice;
 
     @FXML
-    private TableColumn<Coin, String> columnCoin;
+    private TableColumn<Action, String> columnAction;
 
     @FXML
     private Button quoteBtnSell;
@@ -90,10 +90,10 @@ public class FXMLQuotationController implements Initializable {
 
     @FXML
     public void goBuyAction() {
-        BuyCoin buyCoin = new BuyCoin();
+        BuyAction buyAction = new BuyAction();
         goQuitAction();
         try {
-            buyCoin.start(new Stage());
+            buyAction.start(new Stage());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -101,10 +101,10 @@ public class FXMLQuotationController implements Initializable {
 
     @FXML
     public void goSellAction() {
-        SellCoin sellCoin = new SellCoin();
+        SellAction sellAction = new SellAction();
         goQuitAction();
         try {
-            sellCoin.start(new Stage());
+            sellAction.start(new Stage());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -113,10 +113,10 @@ public class FXMLQuotationController implements Initializable {
 
     @FXML
     public void quoteBtnBuyAction() {
-        BuyCoin buyCoin = new BuyCoin();
+        BuyAction buyAction = new BuyAction();
         goQuitAction();
         try {
-            buyCoin.start(new Stage());
+            buyAction.start(new Stage());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -124,23 +124,23 @@ public class FXMLQuotationController implements Initializable {
 
     @FXML
     public void quoteBtnSellAction() {
-        SellCoin sellCoin = new SellCoin();
+        SellAction sellAction = new SellAction();
         goQuitAction();
         try {
-            sellCoin.start(new Stage());
+            sellAction.start(new Stage());
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public ObservableList<Coin> loadTable() {
-        ObservableList<Coin> coins = FXCollections.observableArrayList(CoinController.getCoinController().read());
-        return coins;
+    public ObservableList<Action> loadTable() {
+        ObservableList<Action> actions = FXCollections.observableArrayList(ActionController.getActionController().read());
+        return actions;
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        columnCoin.setCellValueFactory(
+        columnAction.setCellValueFactory(
                 new PropertyValueFactory<>("name"));
         columnPrice.setCellValueFactory(
                 new PropertyValueFactory<>("price"));

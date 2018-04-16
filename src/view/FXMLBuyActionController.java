@@ -1,9 +1,8 @@
 package view;
 
-import control.CoinController;
+import control.ActionController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -12,15 +11,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import model.Coin;
+import model.Action;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class FXMLBuyCoinController implements Initializable {
+public class FXMLBuyActionController implements Initializable {
 
     @FXML
     private MenuBar menuBar;
@@ -50,14 +47,14 @@ public class FXMLBuyCoinController implements Initializable {
     private Button buyBtnCancel;
 
     @FXML
-    private ComboBox<Coin> buyCbBoxCoin;
+    private ComboBox<Action> buyCbBoxAction;
 
     @FXML
-    private ComboBox<Coin> buyCbBoxCoinOut;
+    private ComboBox<Action> buyCbBoxActionOut;
 
     @FXML
     public void goQuitAction() {
-        BuyCoin.getStage().close();
+        BuyAction.getStage().close();
     }
 
     @FXML
@@ -95,10 +92,10 @@ public class FXMLBuyCoinController implements Initializable {
 
     @FXML
     public void goBuyAction() {
-        BuyCoin buyCoin = new BuyCoin();
+        BuyAction buyAction = new BuyAction();
         goQuitAction();
         try {
-            buyCoin.start(new Stage());
+            buyAction.start(new Stage());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -106,10 +103,10 @@ public class FXMLBuyCoinController implements Initializable {
 
     @FXML
     public void goSellAction() {
-        SellCoin sellCoin = new SellCoin();
+        SellAction sellAction = new SellAction();
         goQuitAction();
         try {
-            sellCoin.start(new Stage());
+            sellAction.start(new Stage());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -117,7 +114,7 @@ public class FXMLBuyCoinController implements Initializable {
 
     @FXML
     public void buyBtnAction() {
-        CoinController.getCoinController().exchange(Double.parseDouble(buyQuantText.getText()), buyCbBoxCoinOut.getValue(), buyCbBoxCoin.getValue());
+        ActionController.getActionController().exchange(Double.parseDouble(buyQuantText.getText()), ActionController.getActionController().searchAction("Real"), buyCbBoxAction.getValue());
         Quotation quotation = new Quotation();
         goQuitAction();
         try {
@@ -139,14 +136,14 @@ public class FXMLBuyCoinController implements Initializable {
 
     }
 
-    public ObservableList<Coin> loadCheckBox() {
-        ObservableList<Coin> coins = FXCollections.observableArrayList(CoinController.getCoinController().read());
-        return coins;
+    public ObservableList<Action> loadCheckBox() {
+        ObservableList<Action> actions = FXCollections.observableArrayList(ActionController.getActionController().read());
+        return actions;
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        buyCbBoxCoin.setItems(loadCheckBox());
-        buyCbBoxCoinOut.setItems(loadCheckBox());
+        buyCbBoxAction.setItems(loadCheckBox());
+        //buyCbBoxActionOut.setItems(loadCheckBox());
     }
 }

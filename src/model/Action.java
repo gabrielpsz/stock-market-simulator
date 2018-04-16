@@ -2,12 +2,12 @@ package model;
 
 import java.io.Serializable;
 
-public class Coin implements Serializable {
+public class Action implements Serializable {
 
     private String name;
     private double price;
 
-    public Coin(String name, double price) {
+    public Action(String name, double price) {
         super();
         this.name = name;
         this.price = price;
