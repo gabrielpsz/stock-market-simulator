@@ -41,6 +41,9 @@ public class FXMLWalletController implements Initializable {
     private TableColumn<WalletAction, String> actionColumn;
 
     @FXML
+    private TableColumn<WalletAction, Double> quantityColumn;
+
+    @FXML
     private TableColumn<WalletAction, Double> valueColumn;
 
     @FXML
@@ -66,6 +69,9 @@ public class FXMLWalletController implements Initializable {
 
     @FXML
     private Label saldo_naorealizado;
+
+    @FXML
+    private Label saldo_total;
 
     @FXML
     public void goQuitAction() {
@@ -172,12 +178,13 @@ public class FXMLWalletController implements Initializable {
         }
     }
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        saldo_naorealizado.setText(ActionController.getActionController().setSaldoNaoRealizado().toString());
+        saldo_naorealizado.setText(ActionController.getActionController().getSaldoNaoRealizado().toString());
+        saldo_total.setText(ActionController.getActionController().getSaldoTotal().toString());
         actionColumn.setCellValueFactory(new PropertyValueFactory<>("nameAction"));
-        valueColumn.setCellValueFactory(new PropertyValueFactory<>("qtd"));
+        quantityColumn.setCellValueFactory(new PropertyValueFactory<>("qtd"));
+        valueColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
         walletTable.setItems(FXCollections.observableList(listaSemReal()));
     }
 

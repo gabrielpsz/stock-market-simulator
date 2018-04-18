@@ -22,7 +22,7 @@ public class WalletAction implements Serializable {
     }
 
     public double getQtd() {
-        return qtd;
+        return Math.round(this.qtd * 100) / 100d;
     }
 
     public void setQtd(double qtd) {

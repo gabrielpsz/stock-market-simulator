@@ -135,6 +135,7 @@ public class FXMLQuotationController implements Initializable {
 
     public ObservableList<Action> loadTable() {
         ObservableList<Action> actions = FXCollections.observableArrayList(ActionController.getActionController().read());
+        actions.remove(ActionController.getActionController().searchAction("Real"));
         return actions;
     }
 

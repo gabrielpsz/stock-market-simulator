@@ -42,10 +42,11 @@
         </MenuBar>
         <Pane prefHeight="376.0" prefWidth="600.0">
             <children>
-                <TableView fx:id="walletTable" layoutX="21.0" layoutY="6.0" prefHeight="192.0" prefWidth="555.0">
+                <TableView fx:id="walletTable" layoutX="21.0" layoutY="6.0" prefHeight="192.0" prefWidth="557.0">
                     <columns>
-                  <TableColumn fx:id="valueColumn" prefWidth="276.0" text="Valor em R$" />
-                        <TableColumn fx:id="actionColumn" prefWidth="278.0" text="Ação" />
+                        <TableColumn fx:id="quantityColumn" prefWidth="201.0" text="Quantidade" />
+                        <TableColumn fx:id="actionColumn" prefWidth="188.0" text="Ação" />
+                        <TableColumn fx:id="valueColumn" prefWidth="166.0" text="Valor" />
                     </columns>
                 </TableView>
                 <Button fx:id="walletDepositBtn" layoutX="61.0" layoutY="301.0" mnemonicParsing="false" onAction="#walletDepositBtnAction" text="Depositar" />
@@ -53,7 +54,9 @@
                 <Button fx:id="walletBtnSell" layoutX="365.0" layoutY="301.0" mnemonicParsing="false" onAction="#walletBtnSellAction" text="Vender" />
                 <Button fx:id="walletBtnBuy" layoutX="456.0" layoutY="301.0" mnemonicParsing="false" onAction="#walletBtnBuyAction" text="Comprar" />
             <Label layoutX="33.0" layoutY="229.0" text="Saldo não-realizado:" />
-            <Label fx:id="saldo_naorealizado" layoutX="170.0" layoutY="229.0" text="saldo" />
+            <Label fx:id="saldo_naorealizado" layoutX="170.0" layoutY="229.0" text="saldo_naorealizado" />
+            <Label layoutX="33.0" layoutY="256.0" text="Saldo total:" />
+            <Label fx:id="saldo_total" layoutX="170.0" layoutY="256.0" text="saldo_total" />
             </children>
         </Pane>
     </children>

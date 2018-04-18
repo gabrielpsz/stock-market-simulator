@@ -109,13 +109,13 @@ public class FXMLSellActionController implements Initializable {
 
     public ObservableList<Action> loadCheckBox() {
         ObservableList<Action> actions = FXCollections.observableArrayList(ActionController.getActionController().read());
+        actions.remove(ActionController.getActionController().searchAction("Real"));
         return actions;
     }
 
     @FXML
     public void sellBtnAction() {
-        ActionController.getActionController().exchange(Double.parseDouble(sellQtdText.getText()), sellCbAction.getValue(), ActionController.getActionController().searchAction("Real"));
-
+        ActionController.getActionController().venda(Double.parseDouble(sellQtdText.getText()), sellCbAction.getValue(), ActionController.getActionController().searchAction("Real"));
     }
 
     @FXML

@@ -27,7 +27,7 @@ public class Action implements Serializable {
     }
 
     public double getPrice() {
-        return price;
+        return Math.round(this.price * 100) / 100d;
     }
 
     public void setPrice(double price) {

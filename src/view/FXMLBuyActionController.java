@@ -114,7 +114,7 @@ public class FXMLBuyActionController implements Initializable {
 
     @FXML
     public void buyBtnAction() {
-        ActionController.getActionController().exchange(Double.parseDouble(buyQuantText.getText()), ActionController.getActionController().searchAction("Real"), buyCbBoxAction.getValue());
+        ActionController.getActionController().compra(Double.parseDouble(buyQuantText.getText()), ActionController.getActionController().searchAction("Real"), buyCbBoxAction.getValue());
         Quotation quotation = new Quotation();
         goQuitAction();
         try {
@@ -138,6 +138,7 @@ public class FXMLBuyActionController implements Initializable {
 
     public ObservableList<Action> loadCheckBox() {
         ObservableList<Action> actions = FXCollections.observableArrayList(ActionController.getActionController().read());
+        actions.remove(ActionController.getActionController().searchAction("Real"));
         return actions;
     }
 
