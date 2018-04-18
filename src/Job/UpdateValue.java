@@ -9,6 +9,7 @@ public class UpdateValue implements Runnable {
 
     @Override
     public void run() {
+        Action real = new Action("Real", getDoubleValue());
         Action petrobras = new Action("PETR3", getDoubleValue());
         Action cemig = new Action("CMIG4", getDoubleValue());
         Action lojasamericanas = new Action("LAME4", getDoubleValue());

@@ -3,6 +3,7 @@ package control;
 import dao.ActionDao;
 import interfaces.ICrud;
 import model.Action;
+import model.WalletAction;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -115,45 +116,36 @@ public class ActionController extends Controller implements ICrud {
         return wallet;
     }
 
-    public void depositReal(double value) {
+    public void depositReal(double quantidade) {
         System.out.println(UserController.getUserController().getSessionUser());
-        double total = UserController.getUserController().getActionWallet("Real").getQtd() + value;
+        System.out.println(UserController.getUserController().getActionWallet("Real"));
+        double total = UserController.getUserController().getActionWallet("Real").getQtd() + quantidade;
         UserController.getUserController().getActionWallet("Real").setQtd(total);
         Instant timeNow = Instant.now();
-        String history = UserController.getUserController().getSessionUser().getName() + " - Depósito: R$" + value + " - Data: " + timeNow.toString();
+        String history = UserController.getUserController().getSessionUser().getName() + " - Depósito: R$" + quantidade + " - Data: " + timeNow.toString();
         UserController.getUserController().getSessionUser().getHistory().add(history);
         UserController.getUserController().updatePersist();
     }
 
-    public void exchange(double value, Action actionOut, Action actionIn) {
-        if (value > UserController.getUserController().getActionWallet(actionOut.getName()).getQtd()) {
-            System.out.println("Falta dinheiro " + actionOut.getName() + " " + actionIn.getName());
+    public void exchange(double quantidade, Action saldo, Action acaoComprada) {
+        if (quantidade * acaoComprada.getPrice() >  UserController.getUserController().getActionWallet(saldo.getName()).getQtd()) {
+            System.out.println("Falta dinheiro " + saldo.getName() + " " + acaoComprada.getName());
         } else {
-            double walletActionOut = UserController.getUserController().getActionWallet(actionOut.getName()).getQtd() - value;
-            double walletActionIn = UserController.getUserController().getActionWallet(actionIn.getName()).getQtd();
-            double actionOutToActionIn;
-            if (actionIn.getPrice() < actionOut.getPrice()) {
-                actionOutToActionIn = ((value * actionOut.getPrice())/actionIn.getPrice()) + walletActionIn;
-            }
-            else {
-                actionOutToActionIn = (value / actionIn.getPrice()) + walletActionIn;
-            }
-            UserController.getUserController().getActionWallet(actionOut.getName()).setQtd(walletActionOut);
-            UserController.getUserController().getActionWallet(actionIn.getName()).setQtd(actionOutToActionIn);
-
-            Instant timeNow = Instant.now();
-            String history = UserController.getUserController().getSessionUser().getName() + " - Venda De: " + value + " " + actionOut.getName() + " Para: " + actionOutToActionIn + " " + actionIn.getName() + " - Data: " + timeNow.toString();
-            UserController.getUserController().getSessionUser().getHistory().add(history);
+            Double valorCompra = acaoComprada.getPrice() * quantidade;
+            UserController.getUserController().getActionWallet(acaoComprada.getName()).setQtd(valorCompra);
+            Double saldoAtual = UserController.getUserController().getActionWallet(saldo.getName()).getQtd() - valorCompra;
+            System.out.println(saldoAtual);
+            UserController.getUserController().getActionWallet(saldo.getName()).setQtd(saldoAtual);
             UserController.getUserController().updatePersist();
         }
     }
 
-    public void withdrawReal(double value) {
-        if (value <= UserController.getUserController().getActionWallet("Real").getQtd()) {
-            UserController.getUserController().getActionWallet("Real").setQtd(UserController.getUserController().getActionWallet("Real").getQtd() - value);
-//            UserController.getUserController().getSessionUser().getWallet().replace("Real", (UserController.getUserController().getSessionUser().getWallet().get("Real") - value));
+    public void withdrawReal(double quantidade) {
+        if (quantidade <= UserController.getUserController().getActionWallet("Real").getQtd()) {
+            UserController.getUserController().getActionWallet("Real").setQtd(UserController.getUserController().getActionWallet("Real").getQtd() - quantidade);
+//            UserController.getUserController().getSessionUser().getWallet().replace("Real", (UserController.getUserController().getSessionUser().getWallet().get("Real") - quantidade));
             Instant timeNow = Instant.now();
-            String history = UserController.getUserController().getSessionUser().getName() + " - Retirada: R$" + value + " - Data: " + timeNow.toString();
+            String history = UserController.getUserController().getSessionUser().getName() + " - Retirada: R$" + quantidade + " - Data: " + timeNow.toString();
             UserController.getUserController().getSessionUser().getHistory().add(history);
             UserController.getUserController().updatePersist();
         } else {
@@ -172,13 +164,15 @@ public class ActionController extends Controller implements ICrud {
         return false;
     }
 
-    // Continue from here warning!
-
-//    public double verifyActionQuantity(String name) {
-//        if (UserController.getSessionUser() != null && name != null || name != "" || name != "Real") {
-//            return (UserController.getSessionUser().getWallet().get(name) / ActionController.getActionController().searchAction("Real").getPrice());
-//        }
-//        return 0.0;
-//    }
-
+    public Double setSaldoNaoRealizado() {
+        Double saldoNaoRealizado = 0.0;
+        for (WalletAction action : UserController.getSessionUser().getWallet()) {
+            if (action.getNameAction().equals("Real")) {
+                saldoNaoRealizado += action.getQtd();
+            } else {
+                saldoNaoRealizado += action.getQtd() * searchAction(action.getNameAction()).getPrice();
+            }
+        }
+        return saldoNaoRealizado;
+    }
 }

@@ -14,7 +14,6 @@ public class Injector {
     public void injetarCadastros() {
 
         Action real = new Action("Real", 1);
-
         Action petrobras = new Action("PETR3", 1);
         Action cemig = new Action("CMIG4", 1);
         Action lojasamericanas = new Action("LAME4", 1);

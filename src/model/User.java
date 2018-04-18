@@ -10,7 +10,6 @@ public class User implements Serializable {
     private String password;
     private String name;
     private String cpf;
-    //    private Map<String, Double> walletAction;
     private List<WalletAction> wallet;
     private List<String> history;
 
@@ -21,7 +20,6 @@ public class User implements Serializable {
         this.name = name;
         this.cpf = cpf;
         this.wallet = wallet;
-//        this.walletAction = new HashMap<>(walletAction);
         this.history = new ArrayList<>();
     }
 
@@ -37,6 +35,7 @@ public class User implements Serializable {
     }
 
     public List<WalletAction> getWallet() {
+
         return wallet;
     }
 

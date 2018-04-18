@@ -144,6 +144,5 @@ public class FXMLBuyActionController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         buyCbBoxAction.setItems(loadCheckBox());
-        //buyCbBoxActionOut.setItems(loadCheckBox());
     }
 }

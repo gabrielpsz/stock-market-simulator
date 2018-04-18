@@ -1,5 +1,6 @@
 package view;
 
+import control.ActionController;
 import control.UserController;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleObjectProperty;
@@ -20,10 +21,9 @@ import model.Action;
 import model.User;
 import model.WalletAction;
 
+import java.lang.reflect.Array;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class FXMLWalletController implements Initializable {
 
@@ -63,6 +63,9 @@ public class FXMLWalletController implements Initializable {
 
     @FXML
     private Button walletCashWithBtn;
+
+    @FXML
+    private Label saldo_naorealizado;
 
     @FXML
     public void goQuitAction() {
@@ -169,10 +172,22 @@ public class FXMLWalletController implements Initializable {
         }
     }
 
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        saldo_naorealizado.setText(ActionController.getActionController().setSaldoNaoRealizado().toString());
         actionColumn.setCellValueFactory(new PropertyValueFactory<>("nameAction"));
         valueColumn.setCellValueFactory(new PropertyValueFactory<>("qtd"));
-        walletTable.setItems(FXCollections.observableList(UserController.getSessionUser().getWallet()));
+        walletTable.setItems(FXCollections.observableList(listaSemReal()));
+    }
+
+    public ArrayList<WalletAction> listaSemReal() {
+        ArrayList<WalletAction> walletActions = new ArrayList<>();
+        for (WalletAction wa : UserController.getSessionUser().getWallet()) {
+            if (!wa.getNameAction().equals("Real")) {
+                walletActions.add(wa);
+            }
+        }
+        return walletActions;
     }
 }
