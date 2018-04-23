@@ -180,11 +180,12 @@ public class FXMLWalletController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        ActionController.getActionController().getValorTotalAcoes();
         saldo_naorealizado.setText(ActionController.getActionController().getSaldoNaoRealizado().toString());
         saldo_total.setText(ActionController.getActionController().getSaldoTotal().toString());
         actionColumn.setCellValueFactory(new PropertyValueFactory<>("nameAction"));
         quantityColumn.setCellValueFactory(new PropertyValueFactory<>("qtd"));
-        valueColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        valueColumn.setCellValueFactory(new PropertyValueFactory<>("value"));
         walletTable.setItems(FXCollections.observableList(listaSemReal()));
     }
 

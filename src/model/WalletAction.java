@@ -7,6 +7,7 @@ public class WalletAction implements Serializable {
 
     private String nameAction;
     private double qtd;
+    private double value;
 
     public WalletAction(String nameAction, double qtd) {
         this.nameAction = nameAction;
@@ -27,5 +28,13 @@ public class WalletAction implements Serializable {
 
     public void setQtd(double qtd) {
         this.qtd = qtd;
+    }
+
+    public double getValue() {
+        return value;
+    }
+
+    public void setValue(double value) {
+        this.value = value;
     }
 }

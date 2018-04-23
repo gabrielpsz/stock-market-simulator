@@ -144,7 +144,7 @@ public class ActionController extends Controller implements ICrud {
     public void venda(double quantidade, Action acaoVendida, Action saldo) {
         Double saldoTotal = UserController.getUserController().getActionWallet(saldo.getName()).getQtd();
         saldoTotal += acaoVendida.getPrice() * quantidade;
-        System.out.println("Saldo total = " +saldoTotal);
+        System.out.println("Saldo total = " + saldoTotal);
         Double quantidadeDeAcoes = UserController.getUserController().getActionWallet(acaoVendida.getName()).getQtd();
         UserController.getUserController().getActionWallet(acaoVendida.getName()).setQtd(quantidadeDeAcoes - quantidade);
         UserController.getUserController().getActionWallet(saldo.getName()).setQtd(saldoTotal);
@@ -190,5 +190,17 @@ public class ActionController extends Controller implements ICrud {
     public Double getSaldoTotal() {
         Double saldo = UserController.getUserController().getActionWallet("Real").getQtd();
         return Math.round(saldo * 100) / 100d;
+    }
+
+    public Double getValorTotalAcoes() {
+        Double valorTotalAcoes = 0.0;
+        for (WalletAction action : UserController.getSessionUser().getWallet()) {
+            if (!action.getNameAction().equals("Real")) {
+                valorTotalAcoes = UserController.getUserController().getActionWallet(action.getNameAction()).getQtd() * searchAction(action.getNameAction()).getPrice();
+                UserController.getUserController().getActionWallet(action.getNameAction()).setValue(valorTotalAcoes);
+            }
+        }
+        UserController.getUserController().updatePersist();
+        return valorTotalAcoes;
     }
 }

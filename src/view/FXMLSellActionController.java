@@ -1,15 +1,12 @@
 package view;
 
 import control.ActionController;
+import control.UserController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.Action;
 
@@ -115,7 +112,16 @@ public class FXMLSellActionController implements Initializable {
 
     @FXML
     public void sellBtnAction() {
-        ActionController.getActionController().venda(Double.parseDouble(sellQtdText.getText()), sellCbAction.getValue(), ActionController.getActionController().searchAction("Real"));
+        System.out.println(UserController.getUserController().getActionWallet(sellCbAction.getValue().getName()).getQtd());
+        if (UserController.getUserController().getActionWallet(sellCbAction.getValue().getName()).getQtd() >= Double.parseDouble(sellQtdText.getText())) {
+            ActionController.getActionController().venda(Double.parseDouble(sellQtdText.getText()), sellCbAction.getValue(), ActionController.getActionController().searchAction("Real"));
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erro");
+            alert.setHeaderText("Você não possui ações suficientes para realizar esta venda");
+            alert.setContentText("Verifique os dados digitados");
+            alert.show();
+        }
     }
 
     @FXML
